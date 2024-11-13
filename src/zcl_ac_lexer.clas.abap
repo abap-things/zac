@@ -51,6 +51,7 @@ public section.
         keyword         TYPE string VALUE `KEYWORD`,
         operator        TYPE string VALUE `OPERATOR`,
         unexpected      TYPE string VALUE `UNEXPECTED`,
+        comment         TYPE string VALUE `COMMENT`,
         eof             TYPE string VALUE `EOF`,
       END OF cs_token_type .
 
@@ -121,6 +122,8 @@ CLASS ZCL_AC_LEXER IMPLEMENTATION.
         iv_row = lv_tabix
       ) TO rt_token.
     ENDLOOP.
+
+    DELETE rt_token WHERE type = cs_token_type-comment.
 
     LOOP AT rt_token ASSIGNING FIELD-SYMBOL(<ls_token>) FROM 2.
       CHECK <ls_token>-type = cs_token_type-space_type.
@@ -315,6 +318,7 @@ CLASS ZCL_AC_LEXER IMPLEMENTATION.
       ( pattern = '^([\-\+]?\d+)'              token_type = cs_token_type-int_literal )
       ( pattern = '^(\-|\+|\*|\/)'             token_type = cs_token_type-operator )
       ( pattern = '^([A-Z_]\w*(\-[A-Z_]\w*)*)' token_type = cs_token_type-id )
+      ( pattern = '^(".*)'                     token_type = cs_token_type-comment )
       ( pattern = '^(\S+)'                     token_type = cs_token_type-unexpected )
     ).
 

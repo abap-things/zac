@@ -1,7 +1,14 @@
-*! ac_output_mode = cs_output_mode-class.
-*! ac_object_description = 'Generated class'.
-*! class_name = ac_object_name.
+* Template sample: static access to STVARV parameters, this comment will be pushed to output as is
 
+*!"All prefixed in here with *! is a script
+*!"And all prefixed with " after *! is a comment inside of the script and it will be ignored
+
+*! ac_output_mode = cs_output_mode-class.           "we can assign variables, ac_output_mode is the predifined variable
+*!                                                  "and cs_output_mode-class is a predefined constant (of class ZCL_AC_GENERATOR)
+*! ac_object_description = 'Generated class'.       "ac_object_description another predefined variable too, but here we set it arbitrarily
+*! class_name = ac_object_name.                     "we can assign our own variables, "class_name" just a sample of it
+
+*!" the text below will be pushed to output with substitutions: {something} will be substitited with value of the same named variable
 CLASS {class_name} DEFINITION
   PUBLIC
   FINAL
@@ -12,8 +19,11 @@ CLASS {class_name} DEFINITION
     TYPES:
       tyt_tvarvc_range TYPE RANGE OF rvari_val_255.
 
+*!" we can loop on the table variable (it was set by calling program and it's one and only way to use table variables)
+*!" ls_tvarv is a loop variable, it looks like in ABAP and it means like in ABAP
 *! LOOP AT gt_tvarvc INTO DATA(ls_tvarv) WHERE name <> ''.
 *!  IF ls_tvarv-type = 'P'.
+*!"   ret_type is our own variable again
 *!    ret_type = 'RVARI_VAL_255'.
 *!    ret_prefix = 'V'.
 *!  ELSE.

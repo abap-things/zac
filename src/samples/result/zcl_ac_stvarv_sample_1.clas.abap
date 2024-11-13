@@ -1,3 +1,5 @@
+* Template sample: static access to STVARV parameters
+
 
 CLASS zcl_ac_stvarv_sample_1 DEFINITION
   PUBLIC
