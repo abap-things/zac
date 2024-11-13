@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AC_AST_SUBST</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Подстановочный текст</DESCRIPT>
+    <DESCRIPT>Substitution node</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

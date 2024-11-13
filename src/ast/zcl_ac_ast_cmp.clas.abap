@@ -1,22 +1,21 @@
-CLASS zcl_ac_ast_cmp DEFINITION
-  PUBLIC
-  INHERITING FROM zcl_ac_ast_eval
-  FINAL
-  CREATE PUBLIC .
+class ZCL_AC_AST_CMP definition
+  public
+  inheriting from ZCL_AC_AST_EVAL
+  final
+  create public .
 
-  PUBLIC SECTION.
+public section.
 
+  methods CONSTRUCTOR
+    importing
+      !IV_OPERATOR type STRING
+      !IO_LEFT_AST type ref to ZCL_AC_AST_EVAL
+      !IO_RIGHT_AST type ref to ZCL_AC_AST_EVAL .
 
-    METHODS constructor
-      IMPORTING
-        !iv_operator  TYPE string
-        !io_left_ast  TYPE REF TO zcl_ac_ast_eval
-        !io_right_ast TYPE REF TO zcl_ac_ast_eval.
-
-    METHODS evaluate
-        REDEFINITION .
-    METHODS get_class
-        REDEFINITION .
+  methods EVALUATE
+    redefinition .
+  methods GET_CLASS
+    redefinition .
   PROTECTED SECTION.
 
   PRIVATE SECTION.

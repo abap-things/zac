@@ -1,27 +1,27 @@
-CLASS zcl_ac_ast_do DEFINITION
-  PUBLIC
-  INHERITING FROM zcl_ac_ast_exec
-  FINAL
-  CREATE PUBLIC .
+class ZCL_AC_AST_DO definition
+  public
+  inheriting from ZCL_AC_AST_EXEC
+  final
+  create public .
 
-  PUBLIC SECTION.
+public section.
 
-    TYPES:
-      BEGIN OF tys_if_branch,
+  types:
+    BEGIN OF tys_if_branch,
         times     TYPE i,
         stmt_list TYPE REF TO zcl_ac_ast_stmt_list,
       END OF tys_if_branch .
-    TYPES:
-      tyt_if_branch TYPE STANDARD TABLE OF tys_if_branch WITH DEFAULT KEY .
+  types:
+    tyt_if_branch TYPE STANDARD TABLE OF tys_if_branch WITH DEFAULT KEY .
 
-    METHODS constructor
-      IMPORTING
-        !is_first_token TYPE zcl_ac_lexer=>tys_token
-        !io_times       TYPE REF TO zcl_ac_ast_eval
-        !io_body        TYPE REF TO zcl_ac_ast_stmt_list .
+  methods CONSTRUCTOR
+    importing
+      !IS_FIRST_TOKEN type ZCL_AC_LEXER=>TYS_TOKEN
+      !IO_TIMES type ref to ZCL_AC_AST_EVAL
+      !IO_BODY type ref to ZCL_AC_AST_STMT_LIST .
 
-    METHODS execute
-        REDEFINITION .
+  methods EXECUTE
+    redefinition .
   PROTECTED SECTION.
 
   PRIVATE SECTION.

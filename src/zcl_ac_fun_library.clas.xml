@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AC_FUN_LIBRARY</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Функции для кодогенератора</DESCRIPT>
+    <DESCRIPT>Function library</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

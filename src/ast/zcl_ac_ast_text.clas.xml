@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AC_AST_TEXT</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Простой выводимый текст</DESCRIPT>
+    <DESCRIPT>Simple text node</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

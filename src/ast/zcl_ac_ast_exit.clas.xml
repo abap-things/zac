@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AC_AST_EXIT</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Выход из цикла</DESCRIPT>
+    <DESCRIPT>Loop &quot;EXIT&quot; node</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

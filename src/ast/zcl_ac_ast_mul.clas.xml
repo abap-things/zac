@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AC_AST_MUL</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Цепочка умножений/делений</DESCRIPT>
+    <DESCRIPT>Arithmetic multiplication/division chain node</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AC_AST_SIGN</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Унарный плюс/минус</DESCRIPT>
+    <DESCRIPT>Unary arithmetic operator</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

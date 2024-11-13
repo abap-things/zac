@@ -1,27 +1,27 @@
-CLASS zcl_ac_ast_if DEFINITION
-  PUBLIC
-  INHERITING FROM zcl_ac_ast_exec
-  FINAL
-  CREATE PUBLIC .
+class ZCL_AC_AST_IF definition
+  public
+  inheriting from ZCL_AC_AST_EXEC
+  final
+  create public .
 
-  PUBLIC SECTION.
-    TYPES:
-      BEGIN OF tys_if_branch,
+public section.
+
+  types:
+    BEGIN OF tys_if_branch,
         cond      TYPE REF TO zcl_ac_ast_eval,
         stmt_list TYPE REF TO zcl_ac_ast_stmt_list,
-      END OF tys_if_branch.
+      END OF tys_if_branch .
+  types:
+    tyt_if_branch TYPE STANDARD TABLE OF tys_if_branch WITH DEFAULT KEY .
 
-    TYPES: tyt_if_branch TYPE STANDARD TABLE OF tys_if_branch WITH DEFAULT KEY.
+  methods CONSTRUCTOR
+    importing
+      !IS_FIRST_TOKEN type ZCL_AC_LEXER=>TYS_TOKEN
+      !IT_IF_BRANCH type TYT_IF_BRANCH
+      !IO_ELSE_BRANCH type ref to ZCL_AC_AST_STMT_LIST .
 
-
-    METHODS constructor
-      IMPORTING
-        is_first_token TYPE zcl_ac_lexer=>tys_token
-        !it_if_branch  TYPE tyt_if_branch
-        io_else_branch TYPE REF TO zcl_ac_ast_stmt_list.
-
-    METHODS execute
-        REDEFINITION .
+  methods EXECUTE
+    redefinition .
   PROTECTED SECTION.
 
   PRIVATE SECTION.

@@ -1,20 +1,20 @@
-CLASS zcl_ac_ast_sign DEFINITION
-  PUBLIC
-  INHERITING FROM zcl_ac_ast_eval
-  FINAL
-  CREATE PUBLIC .
+class ZCL_AC_AST_SIGN definition
+  public
+  inheriting from ZCL_AC_AST_EVAL
+  final
+  create public .
 
-  PUBLIC SECTION.
+public section.
 
-    METHODS constructor
-      IMPORTING
-        !is_first_token TYPE zcl_ac_lexer=>tys_token
-        !io_ast         TYPE REF TO zcl_ac_ast_eval.
+  methods CONSTRUCTOR
+    importing
+      !IS_FIRST_TOKEN type ZCL_AC_LEXER=>TYS_TOKEN
+      !IO_AST type ref to ZCL_AC_AST_EVAL .
 
-    METHODS evaluate
-        REDEFINITION .
-    METHODS get_class
-        REDEFINITION .
+  methods EVALUATE
+    redefinition .
+  methods GET_CLASS
+    redefinition .
   PROTECTED SECTION.
 
   PRIVATE SECTION.

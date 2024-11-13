@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AC_AST_LOOP</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Цикл по таблице</DESCRIPT>
+    <DESCRIPT>&quot;LOOP AT&quot; node</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

@@ -1,18 +1,18 @@
-CLASS zcl_ac_ast_asgn DEFINITION
-  PUBLIC
-  INHERITING FROM zcl_ac_ast_exec
-  FINAL
-  CREATE PUBLIC .
+class ZCL_AC_AST_ASGN definition
+  public
+  inheriting from ZCL_AC_AST_EXEC
+  final
+  create public .
 
-  PUBLIC SECTION.
+public section.
 
-    METHODS constructor
-      IMPORTING
-        is_var_token TYPE zcl_ac_lexer=>tys_token
-        !iv_val_expr TYPE REF TO zcl_ac_ast_eval.
+  methods CONSTRUCTOR
+    importing
+      !IS_VAR_TOKEN type ZCL_AC_LEXER=>TYS_TOKEN
+      !IV_VAL_EXPR type ref to ZCL_AC_AST_EVAL .
 
-    METHODS execute
-        REDEFINITION .
+  methods EXECUTE
+    redefinition .
   PROTECTED SECTION.
 
   PRIVATE SECTION.

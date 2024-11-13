@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AC_DATA_PROVIDER</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Обеспечение переменных</DESCRIPT>
+    <DESCRIPT>Runtime variables support</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

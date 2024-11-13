@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AC_AST_SUM</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Цепочка сложений/вычитаний</DESCRIPT>
+    <DESCRIPT>Arithmetic addition/subtraction chain node</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

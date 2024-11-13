@@ -1,40 +1,39 @@
-CLASS zcl_ac_lexer DEFINITION
-  PUBLIC
-  FINAL
-  CREATE PRIVATE .
+class ZCL_AC_LEXER definition
+  public
+  final
+  create private .
 
-  PUBLIC SECTION.
-    TYPES tyt_input TYPE STANDARD TABLE OF string WITH DEFAULT KEY.
+public section.
 
-    TYPES:
-      BEGIN OF tys_token,
+  types:
+    tyt_input TYPE STANDARD TABLE OF string WITH DEFAULT KEY .
+  types:
+    BEGIN OF tys_token,
         type        TYPE string,
         raw_value   TYPE string,
         typed_value TYPE REF TO data,
         row         TYPE i,
         col         TYPE i,
       END OF tys_token .
-
-    TYPES tyt_token TYPE STANDARD TABLE OF tys_token WITH DEFAULT KEY .
-
-    TYPES:
-      BEGIN OF tys_regex2token,
+  types:
+    tyt_token TYPE STANDARD TABLE OF tys_token WITH DEFAULT KEY .
+  types:
+    BEGIN OF tys_regex2token,
         pattern    TYPE string,
         token_type TYPE string,
         regex      TYPE REF TO cl_abap_regex,
-      END OF tys_regex2token.
+      END OF tys_regex2token .
+  types:
+    tyt_regex2token TYPE STANDARD TABLE OF tys_regex2token WITH DEFAULT KEY .
 
-    TYPES tyt_regex2token TYPE STANDARD TABLE OF tys_regex2token WITH DEFAULT KEY.
-
-    CONSTANTS:
-      BEGIN OF cs_key_string,
+  constants:
+    BEGIN OF cs_key_string,
         code_prefix         TYPE string VALUE `*!`,
         subst_prefix_regex  TYPE string VALUE `\{`,
         subst_postfix_regex TYPE string VALUE `\}`,
       END OF cs_key_string .
-
-    CONSTANTS:
-      BEGIN OF cs_token_type,
+  constants:
+    BEGIN OF cs_token_type,
         space_type      TYPE string VALUE `SPACE`,
         space_dup       TYPE string VALUE `SPACE_DUP`,
         text            TYPE string VALUE `TEXT`,
@@ -55,14 +54,12 @@ CLASS zcl_ac_lexer DEFINITION
         eof             TYPE string VALUE `EOF`,
       END OF cs_token_type .
 
-    CLASS-METHODS tokenize
-      IMPORTING
-        !it_input       TYPE tyt_input
-      RETURNING
-        VALUE(rt_token) TYPE tyt_token.
-
-    CLASS-METHODS class_constructor.
-
+  class-methods TOKENIZE
+    importing
+      !IT_INPUT type TYT_INPUT
+    returning
+      value(RT_TOKEN) type TYT_TOKEN .
+  class-methods CLASS_CONSTRUCTOR .
   PROTECTED SECTION.
 
   PRIVATE SECTION.

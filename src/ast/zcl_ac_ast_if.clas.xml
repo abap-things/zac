@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AC_AST_IF</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Условный оператор</DESCRIPT>
+    <DESCRIPT>Conditional statement node</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

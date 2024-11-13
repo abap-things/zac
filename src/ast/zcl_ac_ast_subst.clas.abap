@@ -1,17 +1,17 @@
-CLASS zcl_ac_ast_subst DEFINITION
-  PUBLIC
-  INHERITING FROM zcl_ac_ast_exec
-  FINAL
-  CREATE PUBLIC .
+class ZCL_AC_AST_SUBST definition
+  public
+  inheriting from ZCL_AC_AST_EXEC
+  final
+  create public .
 
-  PUBLIC SECTION.
+public section.
 
-    METHODS constructor
-      IMPORTING
-        !is_subst_token TYPE zcl_ac_lexer=>tys_token.
+  methods CONSTRUCTOR
+    importing
+      !IS_SUBST_TOKEN type ZCL_AC_LEXER=>TYS_TOKEN .
 
-    METHODS execute
-        REDEFINITION .
+  methods EXECUTE
+    redefinition .
   PROTECTED SECTION.
 
   PRIVATE SECTION.

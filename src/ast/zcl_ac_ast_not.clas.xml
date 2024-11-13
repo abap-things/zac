@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AC_AST_NOT</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Логическое отрицание</DESCRIPT>
+    <DESCRIPT>Logical negation node</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

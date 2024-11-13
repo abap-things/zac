@@ -1,28 +1,28 @@
-CLASS zcl_ac_ast_sum DEFINITION
-  PUBLIC
-  INHERITING FROM zcl_ac_ast_eval
-  FINAL
-  CREATE PUBLIC .
+class ZCL_AC_AST_SUM definition
+  public
+  inheriting from ZCL_AC_AST_EVAL
+  final
+  create public .
 
-  PUBLIC SECTION.
+public section.
 
-    TYPES:
-      BEGIN OF tys_co_ast,
+  types:
+    BEGIN OF tys_co_ast,
         operator TYPE string,
         ast      TYPE REF TO zcl_ac_ast_eval,
       END OF tys_co_ast .
-    TYPES:
-      tyt_co_ast TYPE STANDARD TABLE OF tys_co_ast WITH DEFAULT KEY .
+  types:
+    tyt_co_ast TYPE STANDARD TABLE OF tys_co_ast WITH DEFAULT KEY .
 
-    METHODS constructor
-      IMPORTING
-        !io_ast    TYPE REF TO zcl_ac_ast_eval
-        !it_co_ast TYPE tyt_co_ast .
+  methods CONSTRUCTOR
+    importing
+      !IO_AST type ref to ZCL_AC_AST_EVAL
+      !IT_CO_AST type TYT_CO_AST .
 
-    METHODS evaluate
-        REDEFINITION .
-    METHODS get_class
-        REDEFINITION .
+  methods EVALUATE
+    redefinition .
+  methods GET_CLASS
+    redefinition .
   PROTECTED SECTION.
 
   PRIVATE SECTION.

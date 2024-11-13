@@ -1,24 +1,22 @@
-CLASS zcl_ac_parser DEFINITION
-  PUBLIC
-  FINAL
-  CREATE PRIVATE .
+class ZCL_AC_PARSER definition
+  public
+  final
+  create private .
 
-  PUBLIC SECTION.
+public section.
 
-    CLASS-METHODS parse
-      IMPORTING
-        !it_input     TYPE zcl_ac_lexer=>tyt_input
-      RETURNING
-        VALUE(rv_ast) TYPE REF TO zcl_ac_ast_exec
-      RAISING
-        zcx_ac_exception.
-
-    METHODS parse_expr
-      RETURNING
-        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
-      RAISING
-        zcx_ac_exception .
-
+  class-methods PARSE
+    importing
+      !IT_INPUT type ZCL_AC_LEXER=>TYT_INPUT
+    returning
+      value(RV_AST) type ref to ZCL_AC_AST_EXEC
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_EXPR
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_EVAL
+    raising
+      ZCX_AC_EXCEPTION .
   PROTECTED SECTION.
 
   PRIVATE SECTION.

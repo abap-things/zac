@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AC_AST_STMT_LIST</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Цепочка операторов</DESCRIPT>
+    <DESCRIPT>Executable statements chain node</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

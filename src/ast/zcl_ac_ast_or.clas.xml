@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AC_AST_OR</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Цепочка логических ИЛИ</DESCRIPT>
+    <DESCRIPT>Logical &quot;OR&quot; chain node</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

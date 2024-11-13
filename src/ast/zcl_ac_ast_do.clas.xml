@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AC_AST_DO</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Цикл</DESCRIPT>
+    <DESCRIPT>Loop &quot;DO&quot; node</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AC_AST_CMP</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Логический оператор сравнения</DESCRIPT>
+    <DESCRIPT>Compare operator node</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

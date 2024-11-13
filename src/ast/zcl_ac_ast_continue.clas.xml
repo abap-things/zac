@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AC_AST_CONTINUE</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Пропуск итерации</DESCRIPT>
+    <DESCRIPT>Skip iteration node</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

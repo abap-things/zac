@@ -1,17 +1,19 @@
-CLASS zcl_ac_ast_lit DEFINITION
-  PUBLIC
-  INHERITING FROM zcl_ac_ast_eval
-  FINAL
-  CREATE PUBLIC .
+class ZCL_AC_AST_LIT definition
+  public
+  inheriting from ZCL_AC_AST_EVAL
+  final
+  create public .
 
-  PUBLIC SECTION.
-    METHODS constructor
-      IMPORTING
-        is_token TYPE zcl_ac_lexer=>tys_token.
+public section.
 
-    METHODS evaluate REDEFINITION.
-    METHODS get_class REDEFINITION.
+  methods CONSTRUCTOR
+    importing
+      !IS_TOKEN type ZCL_AC_LEXER=>TYS_TOKEN .
 
+  methods EVALUATE
+    redefinition .
+  methods GET_CLASS
+    redefinition .
   PROTECTED SECTION.
 
   PRIVATE SECTION.

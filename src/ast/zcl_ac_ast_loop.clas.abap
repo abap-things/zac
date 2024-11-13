@@ -1,29 +1,29 @@
-CLASS zcl_ac_ast_loop DEFINITION
-  PUBLIC
-  INHERITING FROM zcl_ac_ast_exec
-  FINAL
-  CREATE PUBLIC .
+class ZCL_AC_AST_LOOP definition
+  public
+  inheriting from ZCL_AC_AST_EXEC
+  final
+  create public .
 
-  PUBLIC SECTION.
+public section.
 
-    TYPES:
-      BEGIN OF tys_if_branch,
+  types:
+    BEGIN OF tys_if_branch,
         cond      TYPE REF TO zcl_ac_ast_eval,
         stmt_list TYPE REF TO zcl_ac_ast_stmt_list,
       END OF tys_if_branch .
-    TYPES:
-      tyt_if_branch TYPE STANDARD TABLE OF tys_if_branch WITH DEFAULT KEY .
+  types:
+    tyt_if_branch TYPE STANDARD TABLE OF tys_if_branch WITH DEFAULT KEY .
 
-    METHODS constructor
-      IMPORTING
-        !is_first_token    TYPE zcl_ac_lexer=>tys_token
-        !iv_table_variable TYPE string
-        !iv_line_variable  TYPE string
-        !io_cond           TYPE REF TO zcl_ac_ast_eval OPTIONAL
-        !io_body           TYPE REF TO zcl_ac_ast_stmt_list.
+  methods CONSTRUCTOR
+    importing
+      !IS_FIRST_TOKEN type ZCL_AC_LEXER=>TYS_TOKEN
+      !IV_TABLE_VARIABLE type STRING
+      !IV_LINE_VARIABLE type STRING
+      !IO_COND type ref to ZCL_AC_AST_EVAL optional
+      !IO_BODY type ref to ZCL_AC_AST_STMT_LIST .
 
-    METHODS execute
-        REDEFINITION .
+  methods EXECUTE
+    redefinition .
   PROTECTED SECTION.
 
   PRIVATE SECTION.

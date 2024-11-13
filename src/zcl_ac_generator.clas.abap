@@ -1,32 +1,31 @@
-CLASS zcl_ac_generator DEFINITION
-  PUBLIC
-  FINAL
-  CREATE  PRIVATE .
+class ZCL_AC_GENERATOR definition
+  public
+  final
+  create private .
 
-  PUBLIC SECTION.
-    CONSTANTS:
-      BEGIN OF cs_param_name,
+public section.
+
+  constants:
+    BEGIN OF cs_param_name,
         output_mode        TYPE string VALUE 'AC_OUTPUT_MODE',
         object_name        TYPE string VALUE 'AC_OBJECT_NAME',
         object_description TYPE string VALUE 'AC_OBJECT_DESCRIPTION',
-      END OF cs_param_name.
-
-    CONSTANTS:
-      BEGIN OF cs_output_mode,
+      END OF cs_param_name .
+  constants:
+    BEGIN OF cs_output_mode,
         include   TYPE string VALUE 'AC_INCLUDE',
         report    TYPE string VALUE 'AC_REPORT',
         class     TYPE string VALUE 'AC_CLASS',
         clipboard TYPE string VALUE 'AC_CLIPBOARD',
-      END OF cs_output_mode.
+      END OF cs_output_mode .
 
-    CLASS-METHODS transform_include
-      IMPORTING
-        !iv_include_name  TYPE programm
-        !it_variable      TYPE zcl_ac_data_provider=>tyt_variable
-        iv_pretty_printer TYPE abap_bool DEFAULT abap_true
-      RAISING
-        zcx_ac_exception.
-
+  class-methods TRANSFORM_INCLUDE
+    importing
+      !IV_INCLUDE_NAME type PROGRAMM
+      !IT_VARIABLE type ZCL_AC_DATA_PROVIDER=>TYT_VARIABLE
+      !IV_PRETTY_PRINTER type ABAP_BOOL default ABAP_TRUE
+    raising
+      ZCX_AC_EXCEPTION .
   PROTECTED SECTION.
 
   PRIVATE SECTION.

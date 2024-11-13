@@ -1,32 +1,31 @@
-CLASS zcl_ac_data_provider DEFINITION
-  PUBLIC
-  FINAL
-  CREATE PUBLIC .
+class ZCL_AC_DATA_PROVIDER definition
+  public
+  final
+  create public .
 
-  PUBLIC SECTION.
-    TYPES:
-      BEGIN OF tys_variable,
+public section.
+
+  types:
+    BEGIN OF tys_variable,
         name  TYPE string,
         value TYPE REF TO data,
-      END OF tys_variable.
+      END OF tys_variable .
+  types:
+    tyt_variable TYPE HASHED TABLE OF tys_variable WITH UNIQUE KEY name .
 
-    TYPES: tyt_variable TYPE HASHED TABLE OF tys_variable WITH UNIQUE KEY name.
-
-    METHODS get_value
-      IMPORTING
-        iv_variable_name TYPE string
-      RETURNING
-        VALUE(rv_value)  TYPE REF TO data
-      RAISING
-        zcx_ac_exception .
-
-    METHODS set_value
-      IMPORTING
-        iv_variable_name TYPE string
-        iv_value         TYPE any
-      RAISING
-        zcx_ac_exception .
-
+  methods GET_VALUE
+    importing
+      !IV_VARIABLE_NAME type STRING
+    returning
+      value(RV_VALUE) type ref to DATA
+    raising
+      ZCX_AC_EXCEPTION .
+  methods SET_VALUE
+    importing
+      !IV_VARIABLE_NAME type STRING
+      !IV_VALUE type ANY
+    raising
+      ZCX_AC_EXCEPTION .
   PROTECTED SECTION.
 
   PRIVATE SECTION.

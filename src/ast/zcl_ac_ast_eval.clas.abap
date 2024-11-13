@@ -1,35 +1,32 @@
-CLASS zcl_ac_ast_eval DEFINITION
-  PUBLIC
-  INHERITING FROM zcl_ac_ast
-  ABSTRACT
-  CREATE PUBLIC .
+class ZCL_AC_AST_EVAL definition
+  public
+  inheriting from ZCL_AC_AST
+  abstract
+  create public .
 
-  PUBLIC SECTION.
+public section.
 
-    CONSTANTS:
-      BEGIN OF cs_class,
+  constants:
+    BEGIN OF cs_class,
         value   TYPE string VALUE 'VALUE',
         logical TYPE string VALUE 'LOGICAL',
       END OF cs_class .
 
-    METHODS evaluate
-      ABSTRACT
-      IMPORTING
-        !io_data_provider TYPE REF TO zcl_ac_data_provider
-      RETURNING
-        VALUE(rv_value)   TYPE REF TO data
-      RAISING
-        zcx_ac_exception .
-
-    METHODS get_class
-      ABSTRACT
-      RETURNING
-        VALUE(rv_class) TYPE string .
-
-    METHODS constructor
-      IMPORTING
-        is_first_token TYPE zcl_ac_lexer=>tys_token.
-
+  methods EVALUATE
+  abstract
+    importing
+      !IO_DATA_PROVIDER type ref to ZCL_AC_DATA_PROVIDER
+    returning
+      value(RV_VALUE) type ref to DATA
+    raising
+      ZCX_AC_EXCEPTION .
+  methods GET_CLASS
+  abstract
+    returning
+      value(RV_CLASS) type STRING .
+  methods CONSTRUCTOR
+    importing
+      !IS_FIRST_TOKEN type ZCL_AC_LEXER=>TYS_TOKEN .
   PROTECTED SECTION.
   PRIVATE SECTION.
 ENDCLASS.

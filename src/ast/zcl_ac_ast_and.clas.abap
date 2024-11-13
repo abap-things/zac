@@ -1,22 +1,22 @@
-CLASS zcl_ac_ast_and DEFINITION
-  PUBLIC
-  INHERITING FROM zcl_ac_ast_eval
-  FINAL
-  CREATE PUBLIC .
+class ZCL_AC_AST_AND definition
+  public
+  inheriting from ZCL_AC_AST_EVAL
+  final
+  create public .
 
-  PUBLIC SECTION.
+public section.
 
-    TYPES:
-      tyt_ast TYPE STANDARD TABLE OF REF TO zcl_ac_ast_eval WITH DEFAULT KEY .
+  types:
+    tyt_ast TYPE STANDARD TABLE OF REF TO zcl_ac_ast_eval WITH DEFAULT KEY .
 
-    METHODS constructor
-      IMPORTING
-        !it_ast TYPE tyt_ast .
+  methods CONSTRUCTOR
+    importing
+      !IT_AST type TYT_AST .
 
-    METHODS evaluate
-        REDEFINITION .
-    METHODS get_class
-        REDEFINITION .
+  methods EVALUATE
+    redefinition .
+  methods GET_CLASS
+    redefinition .
   PROTECTED SECTION.
 
   PRIVATE SECTION.

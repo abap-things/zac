@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AC_AST_AND</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Цепочка логических И</DESCRIPT>
+    <DESCRIPT>Logical &quot;AND&quot; chain node</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

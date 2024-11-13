@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AC_AST_FUN_CALL</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Вызов функции</DESCRIPT>
+    <DESCRIPT>Function call node</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

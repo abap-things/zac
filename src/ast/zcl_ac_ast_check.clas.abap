@@ -1,18 +1,18 @@
-CLASS zcl_ac_ast_check DEFINITION
-  PUBLIC
-  INHERITING FROM zcl_ac_ast_exec
-  FINAL
-  CREATE PUBLIC .
+class ZCL_AC_AST_CHECK definition
+  public
+  inheriting from ZCL_AC_AST_EXEC
+  final
+  create public .
 
-  PUBLIC SECTION.
+public section.
 
-    METHODS constructor
-      IMPORTING
-        !is_check_token TYPE zcl_ac_lexer=>tys_token
-        io_cond   TYPE REF TO zcl_ac_ast_eval .
+  methods CONSTRUCTOR
+    importing
+      !IS_CHECK_TOKEN type ZCL_AC_LEXER=>TYS_TOKEN
+      !IO_COND type ref to ZCL_AC_AST_EVAL .
 
-    METHODS execute
-        REDEFINITION .
+  methods EXECUTE
+    redefinition .
   PROTECTED SECTION.
 
   PRIVATE SECTION.

@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCL_AC_LEXER</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Токенизатор для кодогенератора</DESCRIPT>
+    <DESCRIPT>Parse tokenizer</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

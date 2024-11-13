@@ -5,7 +5,7 @@
    <VSEOCLASS>
     <CLSNAME>ZCX_AC_EXCEPTION</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Исключение кодогенерации</DESCRIPT>
+    <DESCRIPT>Tokenizing, parsing or runtime error</DESCRIPT>
     <CATEGORY>40</CATEGORY>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
