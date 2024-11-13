@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_MSAG" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <T100A>
+    <ARBGB>ZAC</ARBGB>
+    <MASTERLANG>R</MASTERLANG>
+   </T100A>
+   <T100>
+    <T100>
+     <SPRSL>R</SPRSL>
+     <ARBGB>ZAC</ARBGB>
+     <MSGNR>001</MSGNR>
+     <TEXT>Unexpected token: &amp;1, row &amp;2, col &amp;3</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>R</SPRSL>
+     <ARBGB>ZAC</ARBGB>
+     <MSGNR>002</MSGNR>
+     <TEXT>Unexpected token: &amp;1, row &amp;2, col &amp;3. Expect &amp;4</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>R</SPRSL>
+     <ARBGB>ZAC</ARBGB>
+     <MSGNR>003</MSGNR>
+     <TEXT>Unexpected token: &amp;1, value &amp;2, row &amp;3, col &amp;4</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>R</SPRSL>
+     <ARBGB>ZAC</ARBGB>
+     <MSGNR>004</MSGNR>
+     <TEXT>Variable &amp;1 is not defined</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>R</SPRSL>
+     <ARBGB>ZAC</ARBGB>
+     <MSGNR>005</MSGNR>
+     <TEXT>Unexpected value: &amp;1, row &amp;2, col &amp;3. Expect &amp;4</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>R</SPRSL>
+     <ARBGB>ZAC</ARBGB>
+     <MSGNR>006</MSGNR>
+     <TEXT>Unexpected value (non logical) expression here: row &amp;1, col &amp;2</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>R</SPRSL>
+     <ARBGB>ZAC</ARBGB>
+     <MSGNR>007</MSGNR>
+     <TEXT>Runtime error while calculating &amp;1 &amp;2 &amp;3</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>R</SPRSL>
+     <ARBGB>ZAC</ARBGB>
+     <MSGNR>008</MSGNR>
+     <TEXT>Field &amp;1 is structure &amp;2 not defined</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>R</SPRSL>
+     <ARBGB>ZAC</ARBGB>
+     <MSGNR>009</MSGNR>
+     <TEXT>Unexpected logical expression: row &amp;1, col &amp;2</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>R</SPRSL>
+     <ARBGB>ZAC</ARBGB>
+     <MSGNR>010</MSGNR>
+     <TEXT>Unable to assign to table &amp;1</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>R</SPRSL>
+     <ARBGB>ZAC</ARBGB>
+     <MSGNR>011</MSGNR>
+     <TEXT>Function &amp;1 not found in ZCL_AC_FUN_LIBRARY class: row &amp;2, col &amp;3</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>R</SPRSL>
+     <ARBGB>ZAC</ARBGB>
+     <MSGNR>012</MSGNR>
+     <TEXT>Incorrect number of parameters when calling &amp;1, row &amp;2, col &amp;3</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>R</SPRSL>
+     <ARBGB>ZAC</ARBGB>
+     <MSGNR>013</MSGNR>
+     <TEXT>Parameter names should be qualified when calling &amp;1, row &amp;2, col &amp;3</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>R</SPRSL>
+     <ARBGB>ZAC</ARBGB>
+     <MSGNR>014</MSGNR>
+     <TEXT>Parameter &amp;1 must be specified when calling &amp;2, row &amp;3, col &amp;4</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>R</SPRSL>
+     <ARBGB>ZAC</ARBGB>
+     <MSGNR>015</MSGNR>
+     <TEXT>Parameter &amp;1 of function &amp;2 does not exists, row &amp;3, col &amp;4</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>R</SPRSL>
+     <ARBGB>ZAC</ARBGB>
+     <MSGNR>016</MSGNR>
+     <TEXT>Unable to read include &amp;1</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>R</SPRSL>
+     <ARBGB>ZAC</ARBGB>
+     <MSGNR>017</MSGNR>
+     <TEXT>Unknown output mode: &amp;1</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>R</SPRSL>
+     <ARBGB>ZAC</ARBGB>
+     <MSGNR>018</MSGNR>
+     <TEXT>Error in generated class: &amp;1</TEXT>
+    </T100>
+    <T100>
+     <SPRSL>R</SPRSL>
+     <ARBGB>ZAC</ARBGB>
+     <MSGNR>019</MSGNR>
+     <TEXT>Class &amp;1 was generated</TEXT>
+    </T100>
+   </T100>
+  </asx:values>
+ </asx:abap>
+</abapGit>
