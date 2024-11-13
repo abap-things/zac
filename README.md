@@ -1,4 +1,6 @@
-This tool is designed to generate abap code for certain dynamic conditions. As an example, in the current version, code generation for static access to stvarv variables is shown here. 
+This tool is designed to generate ABAP code for situations where the code is repeated and depends on some semi-static conditions.
+
+As an example, in the current version, code generation for static access to stvarv variables is shown here. 
 
 The sample of usage can be found in here: 
 
