@@ -7,6 +7,7 @@
 *!                                                  "and cs_output_mode-class is a predefined constant (of class ZCL_AC_GENERATOR)
 *! ac_object_description = 'Generated class'.       "ac_object_description another predefined variable too, but here we set it arbitrarily
 *! class_name = ac_object_name.                     "we can assign our own variables, "class_name" just a sample of it
+*!"                                                 "and... ac_object_name was set outside, but we can overide it too
 
 *!" the text below will be pushed to output with substitutions: {something} will be substitited with value of the same named variable
 CLASS {class_name} DEFINITION

@@ -1,4 +1,5 @@
-* Template sample: static access to STVARV parameters
+* Template sample: static access to STVARV parameters, this comment will be pushed to output as is
+
 
 
 CLASS zcl_ac_stvarv_sample_1 DEFINITION
