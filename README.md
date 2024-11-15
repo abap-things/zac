@@ -1,5 +1,10 @@
 This tool is crafted to generate ABAP code specifically for scenarios that involve repetitive code patterns, influenced by semi-static conditions.
 
+The tool works as follows:
+1. First, we create a template for the desired code.
+2. Then, in the ABAP program, we select the system data that will be used as parameters for the template.
+3. In the same program, we execute the template transformation and obtain the text (ABAP code) in the format we desire.
+
 For example, this section demonstrates code generation for static access to 'stvarv' parameters. The sample of its usage can be found here: 
 
 1. main program: https://github.com/abap-things/zac/blob/master/src/samples/zac_sample_stvarv_1.prog.abap
