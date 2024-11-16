@@ -24,4 +24,6 @@ The script language incorporates elements of ABAP and supports the following fea
 5. Limited form of the LOOP AT/ENDLOOP statement.
 6. Limited form of the DO/ENDDO statement.
 7. Control statements: EXIT, CONTINUE, and CHECK.
-8. "Build-in" functions. 
+8. "Build-in" functions.
+
+BNF of script language added as a comment to Parser class https://github.com/abap-things/zac/blob/master/src/zcl_ac_parser.clas.abap
