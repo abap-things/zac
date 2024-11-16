@@ -218,19 +218,12 @@ CLASS ZCL_AC_GENERATOR IMPLEMENTATION.
 
           MESSAGE s019(zac) WITH ls_class-clsname.
 
-        CATCH cx_oo_class_scan_error INTO DATA(lx_scan_error).
+        CATCH cx_root INTO DATA(lx_error).
           RAISE EXCEPTION TYPE zcx_ac_exception
             MESSAGE ID 'ZAC'
             NUMBER '018'
             WITH
-                lx_scan_error->get_longtext( ).
-
-        CATCH cx_oo_clif_scan_error_detail INTO DATA(lx_scan_error_details).
-          RAISE EXCEPTION TYPE zcx_ac_exception
-            MESSAGE ID 'ZAC'
-            NUMBER '018'
-            WITH
-                lx_scan_error_details->get_longtext( ).
+                lx_error->get_longtext( ).
       ENDTRY.
 
     ELSE.
