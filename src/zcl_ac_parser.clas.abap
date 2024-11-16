@@ -1,4 +1,4 @@
-* BNF:
+* BNF, LL(3) grammar
 
 *<text> ::= TOKEN(text)
 *<subst> ::= TOKEN(subst)
