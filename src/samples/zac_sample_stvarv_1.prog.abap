@@ -14,7 +14,7 @@ START-OF-SELECTION.
       SELECT * INTO TABLE @DATA(gt_tvarvc)
         FROM tvarvc
        WHERE name IN @s_name
-         AND name LIKE 'Z_PARAM%'.
+         AND name LIKE 'Z%'.
 
 *     And generate a global class that will allow us to get static access to them
       zcl_ac_generator=>transform_include(

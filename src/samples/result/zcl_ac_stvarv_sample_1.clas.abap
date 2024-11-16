@@ -16,6 +16,10 @@ CLASS zcl_ac_stvarv_sample_1 DEFINITION
       RETURNING
         VALUE(rv_z_param_p) TYPE rvari_val_255.
 
+    CLASS-METHODS get_zwrf_hier_id
+      RETURNING
+        VALUE(rt_zwrf_hier_id) TYPE tyt_tvarvc_range.
+
     CLASS-METHODS get_z_param_s
       RETURNING
         VALUE(rt_z_param_s) TYPE tyt_tvarvc_range.
@@ -24,14 +28,16 @@ CLASS zcl_ac_stvarv_sample_1 DEFINITION
   PRIVATE SECTION.
     TYPES:
       BEGIN OF tys_data,
-        p_z_param_p TYPE rvari_val_255,
-        s_z_param_s TYPE tyt_tvarvc_range,
+        p_z_param_p    TYPE rvari_val_255,
+        s_zwrf_hier_id TYPE tyt_tvarvc_range,
+        s_z_param_s    TYPE tyt_tvarvc_range,
       END OF tys_data.
 
     TYPES:
       BEGIN OF tys_data_x,
-        p_z_param_p TYPE abap_bool,
-        s_z_param_s TYPE abap_bool,
+        p_z_param_p    TYPE abap_bool,
+        s_zwrf_hier_id TYPE abap_bool,
+        s_z_param_s    TYPE abap_bool,
       END OF tys_data_x.
 
     CLASS-DATA ms_data TYPE tys_data.
@@ -74,5 +80,23 @@ CLASS ZCL_AC_STVARV_SAMPLE_1 IMPLEMENTATION.
     ENDIF.
 
     rt_z_param_s = ms_data-s_z_param_s.
+  ENDMETHOD.
+
+
+  METHOD get_zwrf_hier_id.
+    IF ms_data_x-s_zwrf_hier_id IS INITIAL.
+      SELECT sign,
+             opti AS option,
+             low,
+             high
+        INTO CORRESPONDING FIELDS OF TABLE @ms_data-s_zwrf_hier_id
+        FROM tvarvc
+       WHERE name = 'ZWRF_HIER_ID'
+         AND type = 'S'.
+
+      ms_data_x-s_zwrf_hier_id = abap_true.
+    ENDIF.
+
+    rt_zwrf_hier_id = ms_data-s_zwrf_hier_id.
   ENDMETHOD.
 ENDCLASS.

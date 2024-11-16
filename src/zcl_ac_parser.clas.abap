@@ -1,3 +1,44 @@
+* BNF:
+
+*<text> ::= TOKEN(text)
+*<subst> ::= TOKEN(subst)
+*<variable> ::= TOKEN(variable)
+*<full_stop> ::= TOKEN(".")
+*<space> ::= TOKEN(space)
+*<fun> ::= TOKEN(fun)
+
+*<root> ::= <stmt_list><eof>
+*<stms_list> ::= (<text>|<subst>|<asgn>|<full_stop>|<space>|<if>|<loop>|<do>|<exit>|<continue>|<check>)*[<eof>]
+*<asgn> ::= <variable><space>"="<space><expr>[<space>]"."
+*<loop> ::=
+*  "LOOP AT"<space><variable><space>"INTO"<space>"DATA("<variable>")"
+*  [<space>"WHERE"<space><expr>][<space>]"."
+*  <stmt_list>
+* "ENLOOP"[<space>]"."
+*<do> ::=
+*  "DO"<space><expr><space>"TIMES"[<space>]"."
+*  <stmt_list>
+* "ENDDO"[<space>]"."
+*<if> ::=
+*  "IF"<space><expr>[<space>]"."<space><stmt_list>
+*  ["ELSEIF"<space><expr>[<space>]"."<space><stmt_list>]*
+*  ["ELSE"[<space>]"."<space><stmt_list>]
+*  "ENDIF"[<space>]"."
+*<check> ::= "CHECK"<space><expr>[<space>]"."
+*<exit> ::= "EXIT"[<space>]"."
+*<continue> ::= "CONTINUE"[<space>]"."
+*<expr_prio_00> ::= "("<space><expr_prio_70><space>")"|<fun_call>|<variable>|<literal>
+*<expr_prio_10> ::= ["+"|"-"][<space>]<expr_prio_00>
+*<expr_prio_20> ::= <expr_prio_10>[<space>("*"|"/")<space><expr_prio_10>]*
+*<expr_prio_30> ::= <expr_prio_20>[<space>("+"|"-")<space><expr_prio_20>]*
+*<expr_prio_40> ::= <expr_prio_30>|<expr_prio_30><space>("="|"<>"|"<"|">"|"<="|">="|"CO"|"CN"|"CA"|"NA"|"CS<"|"NS"|"CP"|"NP")<space><expr_prio_30>
+*<expr_prio_50> ::= "NOT"<space><expr_prio_50>|<expr_prio_40>
+*<expr_prio_60> ::= <expr_prio_50>[<space>"AND"<space><expr_prio_50>]*
+*<expr_prio_70> ::= <expr_prio_60>[<space>"OR"<space><expr_prio_60>]*
+*<fun_call> ::= <fun>"("<space>[<args><space>])")"[<space>].
+*<args> ::= <named_param>*|<expr>                                 "inlined in PARSE_FUN_CALL method
+*<named_param> ::= <variable><space>=<expr>|<space><named_param>  "inlined in PARSE_FUN_CALL method
+
 class ZCL_AC_PARSER definition
   public
   final
