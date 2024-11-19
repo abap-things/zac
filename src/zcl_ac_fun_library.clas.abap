@@ -23,6 +23,11 @@ CLASS zcl_ac_fun_library DEFINITION
         !iv_len          TYPE i
       RETURNING
         VALUE(rv_result) TYPE string .
+    CLASS-METHODS ac_alpha_out
+      IMPORTING
+        !iv_val          TYPE string
+      RETURNING
+        VALUE(rv_result) TYPE string .
     CLASS-METHODS ac_concat
       IMPORTING
         !iv_val1         TYPE string
@@ -34,6 +39,7 @@ CLASS zcl_ac_fun_library DEFINITION
         !iv_val          TYPE string
         !iv_sub          TYPE string
         !iv_with         TYPE string
+        !iv_occ          TYPE i DEFAULT 1
       RETURNING
         VALUE(rv_result) TYPE string .
     CLASS-METHODS ac_strlen
@@ -51,6 +57,11 @@ CLASS ZCL_AC_FUN_LIBRARY IMPLEMENTATION.
 
 
   METHOD ac_left.
+    IF strlen( iv_val ) < iv_len.
+      rv_result = iv_val.
+      RETURN.
+    ENDIF.
+
     rv_result = substring( val =  iv_val len = iv_len ).
   ENDMETHOD.
 
@@ -76,11 +87,16 @@ CLASS ZCL_AC_FUN_LIBRARY IMPLEMENTATION.
 
 
   METHOD ac_replace.
-    rv_result = replace( val = iv_val sub = iv_sub with = iv_with ).
+    rv_result = replace( val = iv_val sub = iv_sub with = iv_with occ = iv_occ ).
   ENDMETHOD.
 
 
   METHOD ac_concat.
     rv_result = iv_val1 && iv_val2.
+  ENDMETHOD.
+
+
+  METHOD ac_alpha_out.
+    rv_result = |{ iv_val ALPHA = OUT WIDTH = 1 }|.
   ENDMETHOD.
 ENDCLASS.
