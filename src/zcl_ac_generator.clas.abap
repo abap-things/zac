@@ -87,7 +87,7 @@ CLASS ZCL_AC_GENERATOR IMPLEMENTATION.
       iv_value         = cs_output_mode
     ).
 
-    DATA(lo_ast) = zcl_ac_parser=>parse( it_input ).
+    DATA(lo_ast) = zcl_ac_parser=>parse_script( it_input ).
 
     DATA(lo_writer) = NEW cl_abap_string_c_writer( ).
     lo_ast->execute(

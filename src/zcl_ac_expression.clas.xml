@@ -3,9 +3,9 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <VSEOCLASS>
-    <CLSNAME>ZCL_AC_PARSER</CLSNAME>
+    <CLSNAME>ZCL_AC_EXPRESSION</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>Recursive descent parser</DESCRIPT>
+    <DESCRIPT>Expression</DESCRIPT>
     <STATE>1</STATE>
     <CLSCCINCL>X</CLSCCINCL>
     <FIXPT>X</FIXPT>

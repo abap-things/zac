@@ -1,40 +1,46 @@
-class ZCL_AC_FUN_LIBRARY definition
-  public
-  final
-  create public .
+CLASS zcl_ac_fun_library DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  class-methods AC_LINES
-    importing
-      !IT_TABLE type ANY TABLE
-    returning
-      value(RV_RESULT) type I .
-  class-methods AC_SUBSTRING
-    importing
-      !IV_VAL type STRING
-      !IV_OFF type I
-      !IV_LEN type I
-    returning
-      value(RV_RESULT) type STRING .
-  class-methods AC_LEFT
-    importing
-      !IV_VAL type STRING
-      !IV_LEN type I
-    returning
-      value(RV_RESULT) type STRING .
-  class-methods AC_REPLACE
-    importing
-      !IV_VAL type STRING
-      !IV_SUB type STRING
-      !IV_WITH type STRING
-    returning
-      value(RV_RESULT) type STRING .
-  class-methods AC_STRLEN
-    importing
-      !IV_VAL type STRING
-    returning
-      value(RV_RESULT) type I .
+    CLASS-METHODS ac_lines
+      IMPORTING
+        !it_table        TYPE ANY TABLE
+      RETURNING
+        VALUE(rv_result) TYPE i .
+    CLASS-METHODS ac_substring
+      IMPORTING
+        !iv_val          TYPE string
+        !iv_off          TYPE i
+        !iv_len          TYPE i
+      RETURNING
+        VALUE(rv_result) TYPE string .
+    CLASS-METHODS ac_left
+      IMPORTING
+        !iv_val          TYPE string
+        !iv_len          TYPE i
+      RETURNING
+        VALUE(rv_result) TYPE string .
+    CLASS-METHODS ac_concat
+      IMPORTING
+        !iv_val1         TYPE string
+        !iv_val2         TYPE string
+      RETURNING
+        VALUE(rv_result) TYPE string .
+    CLASS-METHODS ac_replace
+      IMPORTING
+        !iv_val          TYPE string
+        !iv_sub          TYPE string
+        !iv_with         TYPE string
+      RETURNING
+        VALUE(rv_result) TYPE string .
+    CLASS-METHODS ac_strlen
+      IMPORTING
+        !iv_val          TYPE string
+      RETURNING
+        VALUE(rv_result) TYPE i .
   PROTECTED SECTION.
   PRIVATE SECTION.
 ENDCLASS.
@@ -71,5 +77,10 @@ CLASS ZCL_AC_FUN_LIBRARY IMPLEMENTATION.
 
   METHOD ac_replace.
     rv_result = replace( val = iv_val sub = iv_sub with = iv_with ).
+  ENDMETHOD.
+
+
+  METHOD ac_concat.
+    rv_result = iv_val1 && iv_val2.
   ENDMETHOD.
 ENDCLASS.

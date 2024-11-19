@@ -55,11 +55,18 @@ CLASS zcl_ac_lexer DEFINITION
         eof             TYPE string VALUE `EOF`,
       END OF cs_token_type .
 
-    CLASS-METHODS tokenize
+    CLASS-METHODS tokenize_script
       IMPORTING
         !it_input       TYPE tyt_input
       RETURNING
         VALUE(rt_token) TYPE tyt_token .
+
+    CLASS-METHODS tokenize_code
+      IMPORTING
+        !iv_input       TYPE string
+      RETURNING
+        VALUE(rt_token) TYPE tyt_token .
+
     CLASS-METHODS class_constructor .
   PROTECTED SECTION.
 
@@ -111,40 +118,6 @@ ENDCLASS.
 
 
 CLASS ZCL_AC_LEXER IMPLEMENTATION.
-
-
-  METHOD tokenize.
-    LOOP AT it_input ASSIGNING FIELD-SYMBOL(<lv_input>).
-      DATA(lv_tabix) = sy-tabix.
-
-      APPEND LINES OF tokenize_line(
-        iv_input = <lv_input>
-        iv_row = lv_tabix
-      ) TO rt_token.
-    ENDLOOP.
-
-    DELETE rt_token WHERE type = cs_token_type-comment.
-
-    LOOP AT rt_token ASSIGNING FIELD-SYMBOL(<ls_token>) FROM 2.
-      CHECK <ls_token>-type = cs_token_type-space_type.
-      DATA(lv_prev_type) = rt_token[ sy-tabix - 1 ]-type.
-
-      CHECK lv_prev_type = cs_token_type-space_type
-         OR lv_prev_type = cs_token_type-space_dup.
-
-      <ls_token>-type = cs_token_type-space_dup.
-    ENDLOOP.
-
-    DELETE rt_token WHERE type = cs_token_type-space_dup.
-
-    DATA(lv_last_token) = VALUE #( rt_token[ lines( rt_token ) ] OPTIONAL ).
-
-    APPEND VALUE #(
-      type = cs_token_type-eof
-      row = lv_last_token-row
-      col = lv_last_token-col + strlen( lv_last_token-raw_value )
-    ) TO rt_token.
-  ENDMETHOD.
 
 
   METHOD tokenize_line.
@@ -458,5 +431,48 @@ CLASS ZCL_AC_LEXER IMPLEMENTATION.
     mo_library_descr = CAST cl_abap_objectdescr(
       cl_abap_typedescr=>describe_by_name( '\CLASS=' && 'ZCL_AC_FUN_LIBRARY' )
     ).
+  ENDMETHOD.
+
+
+  METHOD tokenize_code.
+    APPEND LINES OF tokenize_code_line(
+      iv_code = iv_input
+      iv_row = 1
+      iv_col = 0
+    ) TO rt_token.
+  ENDMETHOD.
+
+
+  METHOD tokenize_script.
+    LOOP AT it_input ASSIGNING FIELD-SYMBOL(<lv_input>).
+      DATA(lv_tabix) = sy-tabix.
+
+      APPEND LINES OF tokenize_line(
+        iv_input = <lv_input>
+        iv_row = lv_tabix
+      ) TO rt_token.
+    ENDLOOP.
+
+    DELETE rt_token WHERE type = cs_token_type-comment.
+
+    LOOP AT rt_token ASSIGNING FIELD-SYMBOL(<ls_token>) FROM 2.
+      CHECK <ls_token>-type = cs_token_type-space_type.
+      DATA(lv_prev_type) = rt_token[ sy-tabix - 1 ]-type.
+
+      CHECK lv_prev_type = cs_token_type-space_type
+         OR lv_prev_type = cs_token_type-space_dup.
+
+      <ls_token>-type = cs_token_type-space_dup.
+    ENDLOOP.
+
+    DELETE rt_token WHERE type = cs_token_type-space_dup.
+
+    DATA(lv_last_token) = VALUE #( rt_token[ lines( rt_token ) ] OPTIONAL ).
+
+    APPEND VALUE #(
+      type = cs_token_type-eof
+      row = lv_last_token-row
+      col = lv_last_token-col + strlen( lv_last_token-raw_value )
+    ) TO rt_token.
   ENDMETHOD.
 ENDCLASS.

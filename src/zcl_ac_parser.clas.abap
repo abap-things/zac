@@ -39,37 +39,55 @@
 *<args> ::= <named_param>*|<expr>                                 "inlined in PARSE_FUN_CALL method
 *<named_param> ::= <variable><space>=<expr>|<space><named_param>  "inlined in PARSE_FUN_CALL method
 
-class ZCL_AC_PARSER definition
-  public
-  final
-  create private .
+CLASS zcl_ac_parser DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PRIVATE .
 
-public section.
+  PUBLIC SECTION.
 
-  class-methods PARSE
-    importing
-      !IT_INPUT type ZCL_AC_LEXER=>TYT_INPUT
-    returning
-      value(RV_AST) type ref to ZCL_AC_AST_EXEC
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_EXPR
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_EVAL
-    raising
-      ZCX_AC_EXCEPTION .
+    CLASS-METHODS parse_script
+      IMPORTING
+        !it_input     TYPE zcl_ac_lexer=>tyt_input
+      RETURNING
+        VALUE(rv_ast) TYPE REF TO zcl_ac_ast_exec
+      RAISING
+        zcx_ac_exception .
+
+    CLASS-METHODS parse_expression
+      IMPORTING
+        !iv_expression TYPE string
+      RETURNING
+        VALUE(rv_ast)  TYPE REF TO zcl_ac_ast_eval
+      RAISING
+        zcx_ac_exception .
+
+
   PROTECTED SECTION.
 
   PRIVATE SECTION.
 
+    CONSTANTS:
+      BEGIN OF cs_input_type,
+        expression   TYPE i VALUE 0,
+        script TYPE i VALUE 1,
+      END OF cs_input_type.
+
     CONSTANTS cs_token_type LIKE zcl_ac_lexer=>cs_token_type VALUE zcl_ac_lexer=>cs_token_type ##NO_TEXT.
+
     DATA mt_token TYPE zcl_ac_lexer=>tyt_token .
     DATA mv_pos TYPE i .
     DATA mv_loop_deep TYPE i .
 
     METHODS constructor
       IMPORTING
-        !it_input TYPE zcl_ac_lexer=>tyt_input
+        !iv_input_type TYPE i
+        !it_input      TYPE zcl_ac_lexer=>tyt_input
+      RAISING
+        zcx_ac_exception .
+    METHODS parse_expr
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
       RAISING
         zcx_ac_exception .
     METHODS parse_stmt_list
@@ -672,12 +690,6 @@ CLASS ZCL_AC_PARSER IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD parse.
-    DATA(lo_instanse) = NEW zcl_ac_parser( it_input ).
-    rv_ast = lo_instanse->parse_root( ).
-  ENDMETHOD.
-
-
   METHOD ignore_token.
     IF peek_token1st( )-type = iv_ignored_type.
       eat_token( ).
@@ -752,7 +764,12 @@ CLASS ZCL_AC_PARSER IMPLEMENTATION.
 
 
   METHOD constructor.
-    mt_token = zcl_ac_lexer=>tokenize( it_input ).
+    IF iv_input_type = cs_input_type-script.
+      mt_token = zcl_ac_lexer=>tokenize_script( it_input ).
+    ELSE.
+      mt_token = zcl_ac_lexer=>tokenize_code( it_input[ 1 ] ).
+    ENDIF.
+
     IF line_exists( mt_token[ type = cs_token_type-unexpected ] ).
       DATA(ls_unexpected_token) = mt_token[ type = cs_token_type-unexpected ].
 
@@ -899,5 +916,25 @@ CLASS ZCL_AC_PARSER IMPLEMENTATION.
     ).
 
     mv_loop_deep -= 1.
+  ENDMETHOD.
+
+
+  METHOD parse_expression.
+    DATA(lo_instanse) = NEW zcl_ac_parser(
+      iv_input_type = cs_input_type-expression
+      it_input = VALUE #( ( iv_expression ) )
+    ).
+
+    rv_ast = lo_instanse->parse_expr( ).
+  ENDMETHOD.
+
+
+  METHOD parse_script.
+    DATA(lo_instanse) = NEW zcl_ac_parser(
+      iv_input_type = cs_input_type-script
+      it_input = it_input
+    ).
+
+    rv_ast = lo_instanse->parse_root( ).
   ENDMETHOD.
 ENDCLASS.
