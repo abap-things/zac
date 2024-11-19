@@ -1,8 +1,6 @@
 *! ac_output_mode = cs_output_mode-class.
-*! ac_object_name = ac_concat( iv_val1 = `ZCL_AC_DOM_` iv_val2 = gs_dd01l-domname ).
-*! ac_object_name = ac_left( iv_val = ac_object_name iv_len = 30 ).
-*! ac_object_description = ac_concat( iv_val1 = `Domain ` iv_val2 = gs_dd01l-domname ).
-*! ac_object_description = ac_concat( iv_val1 = ac_object_description iv_val2 = ` wrapper` ).
+*! ac_object_name = ac_left( iv_val = `ZCL_AC_DOM_` && gs_dd01l-domname iv_len = 30 ).
+*! ac_object_description = `Domain ` && gs_dd01l-domname && ` wrapper`.
 *! class_name = ac_object_name.
 *!"
 
@@ -25,8 +23,7 @@ CLASS {class_name} DEFINITION
 *!  gv_size_spec = ''.
 *!  IF gs_dd01l-datatype = 'CHAR'
 *!  OR gs_dd01l-datatype = 'NUMC'.
-*!    gv_length = ac_alpha_out( gs_dd01l-outputlen ).
-*!    gv_size_spec = ac_concat( iv_val1 = ` LENGTH ` iv_val2 = gv_length ).
+*!    gv_size_spec = ` LENGTH ` && ac_alpha_out( gs_dd01l-outputlen ).
 *!  ENDIF.
     TYPES: ty_value_type TYPE {gv_type}{gv_size_spec}.
 
@@ -39,7 +36,7 @@ CLASS {class_name} DEFINITION
 *!        OR gv_prefix = '_'.
 *!          gv_name = gs_dd07l-domvalue_l.
 *!        ELSE.
-*!          gv_name = ac_concat( iv_val1 = '_' iv_val2 = gs_dd07l-domvalue_l ).
+*!          gv_name = '_' && gs_dd07l-domvalue_l.
 *!        ENDIF.
         {gv_name} TYPE ty_value_type VALUE '{gs_dd07l-domvalue_l}',
 *!      ENDLOOP.

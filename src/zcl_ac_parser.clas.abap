@@ -31,10 +31,11 @@
 *<expr_prio_10> ::= ["+"|"-"][<space>]<expr_prio_00>
 *<expr_prio_20> ::= <expr_prio_10>[<space>("*"|"/")<space><expr_prio_10>]*
 *<expr_prio_30> ::= <expr_prio_20>[<space>("+"|"-")<space><expr_prio_20>]*
-*<expr_prio_40> ::= <expr_prio_30>|<expr_prio_30><space>("="|"<>"|"<"|">"|"<="|">="|"CO"|"CN"|"CA"|"NA"|"CS<"|"NS"|"CP"|"NP")<space><expr_prio_30>
-*<expr_prio_50> ::= "NOT"<space><expr_prio_50>|<expr_prio_40>
-*<expr_prio_60> ::= <expr_prio_50>[<space>"AND"<space><expr_prio_50>]*
-*<expr_prio_70> ::= <expr_prio_60>[<space>"OR"<space><expr_prio_60>]*
+*<expr_prio_40> ::= <expr_prio_30>[<space>'&&'<space><expr_prio_30>]*
+*<expr_prio_50> ::= <expr_prio_40>|<expr_prio_40><space>("="|"<>"|"<"|">"|"<="|">="|"CO"|"CN"|"CA"|"NA"|"CS<"|"NS"|"CP"|"NP")<space><expr_prio_30>
+*<expr_prio_60> ::= "NOT"<space><expr_prio_60>|<expr_prio_50>
+*<expr_prio_70> ::= <expr_prio_60>[<space>"AND"<space><expr_prio_60>]*
+*<expr_prio_80> ::= <expr_prio_70>[<space>"OR"<space><expr_prio_70>]*
 *<fun_call> ::= <fun>"("<space>[<args><space>])")"[<space>].
 *<args> ::= <named_param>*|<expr>                                 "inlined in PARSE_FUN_CALL method
 *<named_param> ::= <variable><space>=<expr>|<space><named_param>  "inlined in PARSE_FUN_CALL method
@@ -65,180 +66,182 @@ CLASS zcl_ac_parser DEFINITION
 
   PROTECTED SECTION.
 
-  PRIVATE SECTION.
+private section.
 
-    CONSTANTS:
-      BEGIN OF cs_input_type,
+  constants:
+    BEGIN OF cs_input_type,
         expression   TYPE i VALUE 0,
         script TYPE i VALUE 1,
-      END OF cs_input_type.
+      END OF cs_input_type .
+  constants CS_TOKEN_TYPE like ZCL_AC_LEXER=>CS_TOKEN_TYPE value ZCL_AC_LEXER=>CS_TOKEN_TYPE ##NO_TEXT.
+  data MT_TOKEN type ZCL_AC_LEXER=>TYT_TOKEN .
+  data MV_POS type I .
+  data MV_LOOP_DEEP type I .
 
-    CONSTANTS cs_token_type LIKE zcl_ac_lexer=>cs_token_type VALUE zcl_ac_lexer=>cs_token_type ##NO_TEXT.
-
-    DATA mt_token TYPE zcl_ac_lexer=>tyt_token .
-    DATA mv_pos TYPE i .
-    DATA mv_loop_deep TYPE i .
-
-    METHODS constructor
-      IMPORTING
-        !iv_input_type TYPE i
-        !it_input      TYPE zcl_ac_lexer=>tyt_input
-      RAISING
-        zcx_ac_exception .
-    METHODS parse_expr
-      RETURNING
-        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
-      RAISING
-        zcx_ac_exception .
-    METHODS parse_stmt_list
-      RETURNING
-        VALUE(rv_ast) TYPE REF TO zcl_ac_ast_stmt_list
-      RAISING
-        zcx_ac_exception .
-    METHODS parse_root
-      RETURNING
-        VALUE(rv_ast) TYPE REF TO zcl_ac_ast_exec
-      RAISING
-        zcx_ac_exception .
-    METHODS parse_text
-      RETURNING
-        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_text
-      RAISING
-        zcx_ac_exception .
-    METHODS parse_check
-      RETURNING
-        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_check
-      RAISING
-        zcx_ac_exception .
-    METHODS parse_continue
-      RETURNING
-        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_continue
-      RAISING
-        zcx_ac_exception .
-    METHODS parse_fun_call
-      RETURNING
-        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_fun_call
-      RAISING
-        zcx_ac_exception .
-    METHODS parse_exit
-      RETURNING
-        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_exit
-      RAISING
-        zcx_ac_exception .
-    METHODS parse_subst
-      RETURNING
-        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_subst
-      RAISING
-        zcx_ac_exception .
-    METHODS parse_loop
-      RETURNING
-        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_loop
-      RAISING
-        zcx_ac_exception .
-    METHODS parse_do
-      RETURNING
-        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_do
-      RAISING
-        zcx_ac_exception .
-    METHODS parse_if
-      RETURNING
-        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_if
-      RAISING
-        zcx_ac_exception .
-    METHODS parse_asgn
-      RETURNING
-        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_asgn
-      RAISING
-        zcx_ac_exception .
-
-    METHODS parse_expr_prio_00
-      RETURNING
-        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
-      RAISING
-        zcx_ac_exception .
-    METHODS parse_expr_prio_10
-      RETURNING
-        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
-      RAISING
-        zcx_ac_exception .
-    METHODS parse_expr_prio_70
-      RETURNING
-        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
-      RAISING
-        zcx_ac_exception .
-    METHODS parse_expr_prio_60
-      RETURNING
-        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
-      RAISING
-        zcx_ac_exception .
-    METHODS parse_expr_prio_20
-      RETURNING
-        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
-      RAISING
-        zcx_ac_exception .
-    METHODS parse_expr_prio_30
-      RETURNING
-        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
-      RAISING
-        zcx_ac_exception .
-    METHODS parse_expr_prio_40
-      RETURNING
-        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
-      RAISING
-        zcx_ac_exception .
-    METHODS parse_expr_prio_50
-      RETURNING
-        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
-      RAISING
-        zcx_ac_exception .
-    METHODS expect_token
-      IMPORTING
-        !iv_expected_type      TYPE string
-        !iv_expected_raw_value TYPE string OPTIONAL
-      RETURNING
-        VALUE(rs_token)        TYPE zcl_ac_lexer=>tys_token
-      RAISING
-        zcx_ac_exception .
-    METHODS expect_and_eat_keyword
-      IMPORTING
-        !iv_expected_raw_value TYPE string OPTIONAL
-      RETURNING
-        VALUE(rs_token)        TYPE zcl_ac_lexer=>tys_token
-      RAISING
-        zcx_ac_exception .
-    METHODS expect_value_ast
-      IMPORTING
-        !io_ast TYPE REF TO zcl_ac_ast_eval
-      RAISING
-        zcx_ac_exception .
-    METHODS expect_logical_ast
-      IMPORTING
-        !io_ast TYPE REF TO zcl_ac_ast_eval
-      RAISING
-        zcx_ac_exception .
-    METHODS expect_and_eat_token
-      IMPORTING
-        !iv_expected_type      TYPE string
-        !iv_expected_raw_value TYPE string OPTIONAL
-      RETURNING
-        VALUE(rs_token)        TYPE zcl_ac_lexer=>tys_token
-      RAISING
-        zcx_ac_exception .
-    METHODS ignore_token
-      IMPORTING
-        !iv_ignored_type TYPE string .
-    METHODS peek_token1st
-      RETURNING
-        VALUE(rs_token) TYPE zcl_ac_lexer=>tys_token .
-    METHODS peek_token2nd
-      RETURNING
-        VALUE(rs_token) TYPE zcl_ac_lexer=>tys_token .
-    METHODS peek_token3d
-      RETURNING
-        VALUE(rs_token) TYPE zcl_ac_lexer=>tys_token .
-    METHODS eat_token
-      RETURNING
-        VALUE(rs_token) TYPE zcl_ac_lexer=>tys_token .
+  methods CONSTRUCTOR
+    importing
+      !IV_INPUT_TYPE type I
+      !IT_INPUT type ZCL_AC_LEXER=>TYT_INPUT
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_EXPR
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_EVAL
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_STMT_LIST
+    returning
+      value(RV_AST) type ref to ZCL_AC_AST_STMT_LIST
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_ROOT
+    returning
+      value(RV_AST) type ref to ZCL_AC_AST_EXEC
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_TEXT
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_TEXT
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_CHECK
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_CHECK
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_CONTINUE
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_CONTINUE
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_FUN_CALL
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_FUN_CALL
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_EXIT
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_EXIT
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_SUBST
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_SUBST
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_LOOP
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_LOOP
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_DO
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_DO
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_IF
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_IF
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_ASGN
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_ASGN
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_EXPR_PRIO_00
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_EVAL
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_EXPR_PRIO_10
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_EVAL
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_EXPR_PRIO_80
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_EVAL
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_EXPR_PRIO_40
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_EVAL
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_EXPR_PRIO_70
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_EVAL
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_EXPR_PRIO_20
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_EVAL
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_EXPR_PRIO_30
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_EVAL
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_EXPR_PRIO_50
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_EVAL
+    raising
+      ZCX_AC_EXCEPTION .
+  methods PARSE_EXPR_PRIO_60
+    returning
+      value(RO_AST) type ref to ZCL_AC_AST_EVAL
+    raising
+      ZCX_AC_EXCEPTION .
+  methods EXPECT_TOKEN
+    importing
+      !IV_EXPECTED_TYPE type STRING
+      !IV_EXPECTED_RAW_VALUE type STRING optional
+    returning
+      value(RS_TOKEN) type ZCL_AC_LEXER=>TYS_TOKEN
+    raising
+      ZCX_AC_EXCEPTION .
+  methods EXPECT_AND_EAT_KEYWORD
+    importing
+      !IV_EXPECTED_RAW_VALUE type STRING optional
+    returning
+      value(RS_TOKEN) type ZCL_AC_LEXER=>TYS_TOKEN
+    raising
+      ZCX_AC_EXCEPTION .
+  methods EXPECT_VALUE_AST
+    importing
+      !IO_AST type ref to ZCL_AC_AST_EVAL
+    raising
+      ZCX_AC_EXCEPTION .
+  methods EXPECT_LOGICAL_AST
+    importing
+      !IO_AST type ref to ZCL_AC_AST_EVAL
+    raising
+      ZCX_AC_EXCEPTION .
+  methods EXPECT_AND_EAT_TOKEN
+    importing
+      !IV_EXPECTED_TYPE type STRING
+      !IV_EXPECTED_RAW_VALUE type STRING optional
+    returning
+      value(RS_TOKEN) type ZCL_AC_LEXER=>TYS_TOKEN
+    raising
+      ZCX_AC_EXCEPTION .
+  methods IGNORE_TOKEN
+    importing
+      !IV_IGNORED_TYPE type STRING .
+  methods PEEK_TOKEN1ST
+    returning
+      value(RS_TOKEN) type ZCL_AC_LEXER=>TYS_TOKEN .
+  methods PEEK_TOKEN2ND
+    returning
+      value(RS_TOKEN) type ZCL_AC_LEXER=>TYS_TOKEN .
+  methods PEEK_TOKEN3D
+    returning
+      value(RS_TOKEN) type ZCL_AC_LEXER=>TYS_TOKEN .
+  methods EAT_TOKEN
+    returning
+      value(RS_TOKEN) type ZCL_AC_LEXER=>TYS_TOKEN .
 ENDCLASS.
 
 
@@ -428,127 +431,6 @@ CLASS ZCL_AC_PARSER IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD parse_expr_prio_70.
-    DATA(lo_ast) = parse_expr_prio_60( ).
-    DATA(lt_ast) = VALUE zcl_ac_ast_and=>tyt_ast( ( lo_ast ) ).
-
-    DATA(ls_token1st) = peek_token1st( ).
-    DATA(ls_token2nd) = peek_token2nd( ).
-
-    WHILE ls_token1st-type = cs_token_type-space_type
-      AND ls_token2nd-type = cs_token_type-operator
-      AND ls_token2nd-raw_value = 'OR'.
-
-      eat_token( ).
-      eat_token( ).
-      expect_and_eat_token( cs_token_type-space_type ).
-
-      DATA(lo_co_ast) = parse_expr_prio_60( ).
-      expect_logical_ast( lo_co_ast ).
-      APPEND lo_co_ast  TO lt_ast.
-
-      ls_token1st = peek_token1st( ).
-      ls_token2nd = peek_token2nd( ).
-    ENDWHILE.
-
-    IF lines( lt_ast ) = 1.
-      ro_ast = lo_ast.
-    ELSE.
-      ro_ast = NEW zcl_ac_ast_or( lt_ast ).
-    ENDIF.
-  ENDMETHOD.
-
-
-  METHOD parse_expr_prio_60.
-    DATA(lo_ast) = parse_expr_prio_50( ).
-    DATA(lt_ast) = VALUE zcl_ac_ast_and=>tyt_ast( ( lo_ast ) ).
-
-    DATA(ls_token1st) = peek_token1st( ).
-    DATA(ls_token2nd) = peek_token2nd( ).
-
-    WHILE ls_token1st-type = cs_token_type-space_type
-      AND ls_token2nd-type = cs_token_type-operator
-      AND ls_token2nd-raw_value = 'AND'.
-
-      eat_token( ).
-      eat_token( ).
-      expect_and_eat_token( cs_token_type-space_type ).
-
-      DATA(lo_co_ast) = parse_expr_prio_50( ).
-      expect_logical_ast( lo_co_ast ).
-      APPEND lo_co_ast  TO lt_ast.
-
-      ls_token1st = peek_token1st( ).
-      ls_token2nd = peek_token2nd( ).
-    ENDWHILE.
-
-    IF lines( lt_ast ) = 1.
-      ro_ast = lo_ast.
-    ELSE.
-      ro_ast = NEW zcl_ac_ast_and( lt_ast ).
-    ENDIF.
-  ENDMETHOD.
-
-
-  METHOD parse_expr_prio_50.
-    DATA(ls_token) = peek_token1st( ).
-
-    IF ls_token-type = cs_token_type-operator AND ls_token-raw_value = 'NOT'.
-      eat_token( ).
-      expect_and_eat_token( cs_token_type-space_type ).
-
-      DATA(lo_ast) = parse_expr_prio_50( ).
-      expect_logical_ast( lo_ast ).
-
-      ro_ast = NEW zcl_ac_ast_not(
-        is_first_token = ls_token
-        io_ast         = lo_ast
-      ).
-
-      RETURN.
-    ENDIF.
-
-    ro_ast = parse_expr_prio_40( ).
-  ENDMETHOD.
-
-
-  METHOD parse_expr_prio_40.
-    DATA(lo_left_ast) = parse_expr_prio_30( ).
-
-    DATA(ls_token1st) = peek_token1st( ).
-    DATA(ls_token2nd) = peek_token2nd( ).
-
-    IF ls_token1st-type = cs_token_type-space_type
-       AND ls_token2nd-type = cs_token_type-operator
-       AND ( ls_token2nd-raw_value = '='  OR ls_token2nd-raw_value = '<>' OR
-             ls_token2nd-raw_value = '>'  OR ls_token2nd-raw_value = '<'  OR
-             ls_token2nd-raw_value = '>=' OR ls_token2nd-raw_value = '<=' OR
-             ls_token2nd-raw_value = 'CO' OR ls_token2nd-raw_value = 'CN' OR
-             ls_token2nd-raw_value = 'CA' OR ls_token2nd-raw_value = 'NA' OR
-             ls_token2nd-raw_value = 'CS' OR ls_token2nd-raw_value = 'NS' OR
-             ls_token2nd-raw_value = 'CP' OR ls_token2nd-raw_value = 'NP'
-      ).
-
-      eat_token( ).
-      eat_token( ).
-      expect_and_eat_token( cs_token_type-space_type ).
-
-      DATA(lo_right_ast) = parse_expr_prio_30( ).
-      expect_value_ast( lo_right_ast ).
-
-      ro_ast = NEW zcl_ac_ast_cmp(
-        iv_operator  = ls_token2nd-raw_value
-        io_left_ast  = lo_left_ast
-        io_right_ast = lo_right_ast
-      ).
-
-      RETURN.
-    ENDIF.
-
-    ro_ast = lo_left_ast.
-  ENDMETHOD.
-
-
   METHOD parse_expr_prio_30.
     DATA(lo_ast) = parse_expr_prio_20( ).
     DATA(lt_co_ast) = VALUE zcl_ac_ast_mul=>tyt_co_ast(  ).
@@ -644,7 +526,7 @@ CLASS ZCL_AC_PARSER IMPLEMENTATION.
       WHEN cs_token_type-opening_bracket.
         eat_token( ).
         expect_and_eat_token( cs_token_type-space_type ).
-        ro_ast = parse_expr_prio_70( ).
+        ro_ast = parse_expr_prio_80( ).
         expect_and_eat_token( cs_token_type-space_type ).
         expect_and_eat_token( cs_token_type-closing_bracket ).
 
@@ -662,7 +544,7 @@ CLASS ZCL_AC_PARSER IMPLEMENTATION.
 
 
   METHOD parse_expr.
-    ro_ast = parse_expr_prio_70( ).
+    ro_ast = parse_expr_prio_80( ).
   ENDMETHOD.
 
 
@@ -936,5 +818,157 @@ CLASS ZCL_AC_PARSER IMPLEMENTATION.
     ).
 
     rv_ast = lo_instanse->parse_root( ).
+  ENDMETHOD.
+
+
+  METHOD parse_expr_prio_80.
+    DATA(lo_ast) = parse_expr_prio_70( ).
+    DATA(lt_ast) = VALUE zcl_ac_ast_and=>tyt_ast( ( lo_ast ) ).
+
+    DATA(ls_token1st) = peek_token1st( ).
+    DATA(ls_token2nd) = peek_token2nd( ).
+
+    WHILE ls_token1st-type = cs_token_type-space_type
+      AND ls_token2nd-type = cs_token_type-operator
+      AND ls_token2nd-raw_value = 'OR'.
+
+      eat_token( ).
+      eat_token( ).
+      expect_and_eat_token( cs_token_type-space_type ).
+
+      DATA(lo_co_ast) = parse_expr_prio_70( ).
+      expect_logical_ast( lo_co_ast ).
+      APPEND lo_co_ast  TO lt_ast.
+
+      ls_token1st = peek_token1st( ).
+      ls_token2nd = peek_token2nd( ).
+    ENDWHILE.
+
+    IF lines( lt_ast ) = 1.
+      ro_ast = lo_ast.
+    ELSE.
+      ro_ast = NEW zcl_ac_ast_or( lt_ast ).
+    ENDIF.
+  ENDMETHOD.
+
+
+  METHOD parse_expr_prio_70.
+    DATA(lo_ast) = parse_expr_prio_60( ).
+    DATA(lt_ast) = VALUE zcl_ac_ast_and=>tyt_ast( ( lo_ast ) ).
+
+    DATA(ls_token1st) = peek_token1st( ).
+    DATA(ls_token2nd) = peek_token2nd( ).
+
+    WHILE ls_token1st-type = cs_token_type-space_type
+      AND ls_token2nd-type = cs_token_type-operator
+      AND ls_token2nd-raw_value = 'AND'.
+
+      eat_token( ).
+      eat_token( ).
+      expect_and_eat_token( cs_token_type-space_type ).
+
+      DATA(lo_co_ast) = parse_expr_prio_60( ).
+      expect_logical_ast( lo_co_ast ).
+      APPEND lo_co_ast  TO lt_ast.
+
+      ls_token1st = peek_token1st( ).
+      ls_token2nd = peek_token2nd( ).
+    ENDWHILE.
+
+    IF lines( lt_ast ) = 1.
+      ro_ast = lo_ast.
+    ELSE.
+      ro_ast = NEW zcl_ac_ast_and( lt_ast ).
+    ENDIF.
+  ENDMETHOD.
+
+
+  METHOD parse_expr_prio_60.
+    DATA(ls_token) = peek_token1st( ).
+
+    IF ls_token-type = cs_token_type-operator AND ls_token-raw_value = 'NOT'.
+      eat_token( ).
+      expect_and_eat_token( cs_token_type-space_type ).
+
+      DATA(lo_ast) = parse_expr_prio_60( ).
+      expect_logical_ast( lo_ast ).
+
+      ro_ast = NEW zcl_ac_ast_not(
+        is_first_token = ls_token
+        io_ast         = lo_ast
+      ).
+
+      RETURN.
+    ENDIF.
+
+    ro_ast = parse_expr_prio_50( ).
+  ENDMETHOD.
+
+
+  METHOD parse_expr_prio_50.
+    DATA(lo_left_ast) = parse_expr_prio_40( ).
+
+    DATA(ls_token1st) = peek_token1st( ).
+    DATA(ls_token2nd) = peek_token2nd( ).
+
+    IF ls_token1st-type = cs_token_type-space_type
+       AND ls_token2nd-type = cs_token_type-operator
+       AND ( ls_token2nd-raw_value = '='  OR ls_token2nd-raw_value = '<>' OR
+             ls_token2nd-raw_value = '>'  OR ls_token2nd-raw_value = '<'  OR
+             ls_token2nd-raw_value = '>=' OR ls_token2nd-raw_value = '<=' OR
+             ls_token2nd-raw_value = 'CO' OR ls_token2nd-raw_value = 'CN' OR
+             ls_token2nd-raw_value = 'CA' OR ls_token2nd-raw_value = 'NA' OR
+             ls_token2nd-raw_value = 'CS' OR ls_token2nd-raw_value = 'NS' OR
+             ls_token2nd-raw_value = 'CP' OR ls_token2nd-raw_value = 'NP'
+      ).
+
+      eat_token( ).
+      eat_token( ).
+      expect_and_eat_token( cs_token_type-space_type ).
+
+      DATA(lo_right_ast) = parse_expr_prio_40( ).
+      expect_value_ast( lo_right_ast ).
+
+      ro_ast = NEW zcl_ac_ast_cmp(
+        iv_operator  = ls_token2nd-raw_value
+        io_left_ast  = lo_left_ast
+        io_right_ast = lo_right_ast
+      ).
+
+      RETURN.
+    ENDIF.
+
+    ro_ast = lo_left_ast.
+  ENDMETHOD.
+
+
+  METHOD parse_expr_prio_40.
+    DATA(lo_ast) = parse_expr_prio_30( ).
+    DATA(lt_ast) = VALUE zcl_ac_ast_and=>tyt_ast( ( lo_ast ) ).
+
+    DATA(ls_token1st) = peek_token1st( ).
+    DATA(ls_token2nd) = peek_token2nd( ).
+
+    WHILE ls_token1st-type = cs_token_type-space_type
+      AND ls_token2nd-type = cs_token_type-operator
+      AND ls_token2nd-raw_value = '&&'.
+
+      eat_token( ).
+      eat_token( ).
+      expect_and_eat_token( cs_token_type-space_type ).
+
+      DATA(lo_co_ast) = parse_expr_prio_30( ).
+      expect_value_ast( lo_co_ast ).
+      APPEND lo_co_ast  TO lt_ast.
+
+      ls_token1st = peek_token1st( ).
+      ls_token2nd = peek_token2nd( ).
+    ENDWHILE.
+
+    IF lines( lt_ast ) = 1.
+      ro_ast = lo_ast.
+    ELSE.
+      ro_ast = NEW zcl_ac_ast_concat( lt_ast ).
+    ENDIF.
   ENDMETHOD.
 ENDCLASS.

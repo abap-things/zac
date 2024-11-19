@@ -17,6 +17,7 @@ The script language incorporates elements of ABAP and supports the following fea
 1. String and integer literals.
 2. Evaluation of string, integer, and logical expressions using:
 - Arithmetic operations: unary plus/minus, addition, subtraction, multiplication, and division;
+- String operations: && (concatenation);
 - Logical operations: logical NOT, AND, OR, comparisons, and string operations like CS, CP, among others;
 - Parentheses for grouping.
 3. Dynamic variable definitions and assignments.

@@ -287,6 +287,7 @@ CLASS ZCL_AC_LEXER IMPLEMENTATION.
       ( pattern = '^(\))'                      token_type = cs_token_type-closing_bracket )
       ( pattern = '^(\.)'                      token_type = cs_token_type-full_stop )
       ( pattern = '^(\,)'                      token_type = cs_token_type-comma )
+      ( pattern = '^(&&)'                      token_type = cs_token_type-operator )
       ( pattern = '^(<>|<=|>=|=|<|>)'          token_type = cs_token_type-operator )
       ( pattern = '^([\-\+]?\d+)'              token_type = cs_token_type-int_literal )
       ( pattern = '^(\-|\+|\*|\/)'             token_type = cs_token_type-operator )
