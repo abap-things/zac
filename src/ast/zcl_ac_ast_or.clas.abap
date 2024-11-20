@@ -1,22 +1,20 @@
-class ZCL_AC_AST_OR definition
-  public
-  inheriting from ZCL_AC_AST_EVAL
-  final
-  create public .
+CLASS zcl_ac_ast_or DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_ac_ast_eval
+  FINAL
+  CREATE PUBLIC.
 
-public section.
+  PUBLIC SECTION.
+    TYPES:
+      tyt_ast TYPE STANDARD TABLE OF REF TO zcl_ac_ast_eval WITH DEFAULT KEY.
 
-  types:
-    tyt_ast TYPE STANDARD TABLE OF REF TO zcl_ac_ast_eval WITH DEFAULT KEY .
+    METHODS constructor
+      IMPORTING
+        !it_ast TYPE tyt_ast.
 
-  methods CONSTRUCTOR
-    importing
-      !IT_AST type TYT_AST .
+    METHODS evaluate REDEFINITION.
+    METHODS get_class REDEFINITION.
 
-  methods EVALUATE
-    redefinition .
-  methods GET_CLASS
-    redefinition .
   PROTECTED SECTION.
 
   PRIVATE SECTION.
@@ -29,13 +27,13 @@ ENDCLASS.
 CLASS ZCL_AC_AST_OR IMPLEMENTATION.
 
 
-  METHOD CONSTRUCTOR.
+  METHOD constructor.
     super->constructor( it_ast[ 1 ]->get_first_token( ) ).
     mt_ast = it_ast.
   ENDMETHOD.
 
 
-  METHOD EVALUATE.
+  METHOD evaluate.
     DATA(lv_data) = mt_ast[ 1 ]->evaluate( io_data_provider ).
     ASSIGN lv_data->* TO FIELD-SYMBOL(<lv_value>).
 
@@ -57,7 +55,7 @@ CLASS ZCL_AC_AST_OR IMPLEMENTATION.
   ENDMETHOD.
 
 
-  METHOD GET_CLASS.
+  METHOD get_class.
     rv_class = cs_class-logical.
   ENDMETHOD.
 ENDCLASS.

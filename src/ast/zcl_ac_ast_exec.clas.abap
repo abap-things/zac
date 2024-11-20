@@ -1,32 +1,36 @@
-class ZCL_AC_AST_EXEC definition
-  public
-  inheriting from ZCL_AC_AST
-  abstract
-  create public .
+CLASS zcl_ac_ast_exec DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_ac_ast
+  ABSTRACT
+  CREATE PUBLIC.
 
-public section.
+  PUBLIC SECTION.
 
-  constants:
-    BEGIN OF cs_exec_state,
+    CONSTANTS:
+      BEGIN OF cs_exec_state,
         complete TYPE i VALUE 0,
         exit     TYPE i VALUE 1,
         continue TYPE i VALUE 2,
       END OF cs_exec_state .
 
-  methods CONSTRUCTOR
-    importing
-      !IS_FIRST_TOKEN type ZCL_AC_LEXER=>TYS_TOKEN .
-  methods EXECUTE
-  abstract
-    importing
-      !IO_WRITER type ref to CL_ABAP_STRING_C_WRITER
-      !IO_DATA_PROVIDER type ref to ZCL_AC_DATA_PROVIDER
-    returning
-      value(RV_EXEC_STATE) type I
-    raising
-      ZCX_AC_EXCEPTION .
+    METHODS constructor
+      IMPORTING
+        !is_first_token TYPE zcl_ac_lexer=>tys_token.
+
+    METHODS execute
+      ABSTRACT
+      IMPORTING
+        !io_writer           TYPE REF TO cl_abap_string_c_writer
+        !io_data_provider    TYPE REF TO zcl_ac_data_provider
+      RETURNING
+        VALUE(rv_exec_state) TYPE i
+      RAISING
+        zcx_ac_exception.
+
   PROTECTED SECTION.
+
   PRIVATE SECTION.
+
 ENDCLASS.
 
 

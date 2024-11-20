@@ -1,7 +1,7 @@
 CLASS zcl_ac_expression DEFINITION
   PUBLIC
   FINAL
-  CREATE PRIVATE .
+  CREATE PRIVATE.
 
   PUBLIC SECTION.
 
@@ -27,6 +27,7 @@ CLASS zcl_ac_expression DEFINITION
     METHODS constructor
       IMPORTING
         io_ast_eval TYPE REF TO zcl_ac_ast_eval.
+
 ENDCLASS.
 
 

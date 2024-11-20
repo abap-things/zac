@@ -43,17 +43,16 @@
 CLASS zcl_ac_parser DEFINITION
   PUBLIC
   FINAL
-  CREATE PRIVATE .
+  CREATE PRIVATE.
 
   PUBLIC SECTION.
-
     CLASS-METHODS parse_script
       IMPORTING
         !it_input     TYPE zcl_ac_lexer=>tyt_input
       RETURNING
         VALUE(rv_ast) TYPE REF TO zcl_ac_ast_exec
       RAISING
-        zcx_ac_exception .
+        zcx_ac_exception.
 
     CLASS-METHODS parse_expression
       IMPORTING
@@ -61,187 +60,220 @@ CLASS zcl_ac_parser DEFINITION
       RETURNING
         VALUE(rv_ast)  TYPE REF TO zcl_ac_ast_eval
       RAISING
-        zcx_ac_exception .
-
+        zcx_ac_exception.
 
   PROTECTED SECTION.
 
-private section.
+  PRIVATE SECTION.
+    CONSTANTS:
+      BEGIN OF cs_input_type,
+        expression TYPE i VALUE 0,
+        script     TYPE i VALUE 1,
+      END OF cs_input_type.
 
-  constants:
-    BEGIN OF cs_input_type,
-        expression   TYPE i VALUE 0,
-        script TYPE i VALUE 1,
-      END OF cs_input_type .
-  constants CS_TOKEN_TYPE like ZCL_AC_LEXER=>CS_TOKEN_TYPE value ZCL_AC_LEXER=>CS_TOKEN_TYPE ##NO_TEXT.
-  data MT_TOKEN type ZCL_AC_LEXER=>TYT_TOKEN .
-  data MV_POS type I .
-  data MV_LOOP_DEEP type I .
+    CONSTANTS cs_token_type LIKE zcl_ac_lexer=>cs_token_type VALUE zcl_ac_lexer=>cs_token_type ##NO_TEXT.
 
-  methods CONSTRUCTOR
-    importing
-      !IV_INPUT_TYPE type I
-      !IT_INPUT type ZCL_AC_LEXER=>TYT_INPUT
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_EXPR
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_EVAL
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_STMT_LIST
-    returning
-      value(RV_AST) type ref to ZCL_AC_AST_STMT_LIST
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_ROOT
-    returning
-      value(RV_AST) type ref to ZCL_AC_AST_EXEC
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_TEXT
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_TEXT
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_CHECK
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_CHECK
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_CONTINUE
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_CONTINUE
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_FUN_CALL
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_FUN_CALL
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_EXIT
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_EXIT
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_SUBST
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_SUBST
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_LOOP
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_LOOP
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_DO
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_DO
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_IF
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_IF
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_ASGN
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_ASGN
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_EXPR_PRIO_00
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_EVAL
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_EXPR_PRIO_10
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_EVAL
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_EXPR_PRIO_80
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_EVAL
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_EXPR_PRIO_40
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_EVAL
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_EXPR_PRIO_70
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_EVAL
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_EXPR_PRIO_20
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_EVAL
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_EXPR_PRIO_30
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_EVAL
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_EXPR_PRIO_50
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_EVAL
-    raising
-      ZCX_AC_EXCEPTION .
-  methods PARSE_EXPR_PRIO_60
-    returning
-      value(RO_AST) type ref to ZCL_AC_AST_EVAL
-    raising
-      ZCX_AC_EXCEPTION .
-  methods EXPECT_TOKEN
-    importing
-      !IV_EXPECTED_TYPE type STRING
-      !IV_EXPECTED_RAW_VALUE type STRING optional
-    returning
-      value(RS_TOKEN) type ZCL_AC_LEXER=>TYS_TOKEN
-    raising
-      ZCX_AC_EXCEPTION .
-  methods EXPECT_AND_EAT_KEYWORD
-    importing
-      !IV_EXPECTED_RAW_VALUE type STRING optional
-    returning
-      value(RS_TOKEN) type ZCL_AC_LEXER=>TYS_TOKEN
-    raising
-      ZCX_AC_EXCEPTION .
-  methods EXPECT_VALUE_AST
-    importing
-      !IO_AST type ref to ZCL_AC_AST_EVAL
-    raising
-      ZCX_AC_EXCEPTION .
-  methods EXPECT_LOGICAL_AST
-    importing
-      !IO_AST type ref to ZCL_AC_AST_EVAL
-    raising
-      ZCX_AC_EXCEPTION .
-  methods EXPECT_AND_EAT_TOKEN
-    importing
-      !IV_EXPECTED_TYPE type STRING
-      !IV_EXPECTED_RAW_VALUE type STRING optional
-    returning
-      value(RS_TOKEN) type ZCL_AC_LEXER=>TYS_TOKEN
-    raising
-      ZCX_AC_EXCEPTION .
-  methods IGNORE_TOKEN
-    importing
-      !IV_IGNORED_TYPE type STRING .
-  methods PEEK_TOKEN1ST
-    returning
-      value(RS_TOKEN) type ZCL_AC_LEXER=>TYS_TOKEN .
-  methods PEEK_TOKEN2ND
-    returning
-      value(RS_TOKEN) type ZCL_AC_LEXER=>TYS_TOKEN .
-  methods PEEK_TOKEN3D
-    returning
-      value(RS_TOKEN) type ZCL_AC_LEXER=>TYS_TOKEN .
-  methods EAT_TOKEN
-    returning
-      value(RS_TOKEN) type ZCL_AC_LEXER=>TYS_TOKEN .
+    DATA mt_token TYPE zcl_ac_lexer=>tyt_token.
+    DATA mv_pos TYPE i.
+    DATA mv_loop_deep TYPE i.
+
+    METHODS constructor
+      IMPORTING
+        !iv_input_type TYPE i
+        !it_input      TYPE zcl_ac_lexer=>tyt_input
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_expr
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_stmt_list
+      RETURNING
+        VALUE(rv_ast) TYPE REF TO zcl_ac_ast_stmt_list
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_root
+      RETURNING
+        VALUE(rv_ast) TYPE REF TO zcl_ac_ast_exec
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_text
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_text
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_check
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_check
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_continue
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_continue
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_fun_call
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_fun_call
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_exit
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_exit
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_subst
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_subst
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_loop
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_loop
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_do
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_do
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_if
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_if
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_asgn
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_asgn
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_expr_prio_00
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_expr_prio_10
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_expr_prio_80
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_expr_prio_40
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_expr_prio_70
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_expr_prio_20
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_expr_prio_30
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_expr_prio_50
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
+      RAISING
+        zcx_ac_exception.
+
+    METHODS parse_expr_prio_60
+      RETURNING
+        VALUE(ro_ast) TYPE REF TO zcl_ac_ast_eval
+      RAISING
+        zcx_ac_exception.
+
+    METHODS expect_token
+      IMPORTING
+        !iv_expected_type      TYPE string
+        !iv_expected_raw_value TYPE string OPTIONAL
+      RETURNING
+        VALUE(rs_token)        TYPE zcl_ac_lexer=>tys_token
+      RAISING
+        zcx_ac_exception.
+
+    METHODS expect_and_eat_keyword
+      IMPORTING
+        !iv_expected_raw_value TYPE string OPTIONAL
+      RETURNING
+        VALUE(rs_token)        TYPE zcl_ac_lexer=>tys_token
+      RAISING
+        zcx_ac_exception.
+
+    METHODS expect_value_ast
+      IMPORTING
+        !io_ast TYPE REF TO zcl_ac_ast_eval
+      RAISING
+        zcx_ac_exception.
+
+    METHODS expect_logical_ast
+      IMPORTING
+        !io_ast TYPE REF TO zcl_ac_ast_eval
+      RAISING
+        zcx_ac_exception.
+
+    METHODS expect_and_eat_token
+      IMPORTING
+        !iv_expected_type      TYPE string
+        !iv_expected_raw_value TYPE string OPTIONAL
+      RETURNING
+        VALUE(rs_token)        TYPE zcl_ac_lexer=>tys_token
+      RAISING
+        zcx_ac_exception.
+
+    METHODS ignore_token
+      IMPORTING
+        !iv_ignored_type TYPE string.
+
+    METHODS peek_token1st
+      RETURNING
+        VALUE(rs_token) TYPE zcl_ac_lexer=>tys_token.
+
+    METHODS peek_token2nd
+      RETURNING
+        VALUE(rs_token) TYPE zcl_ac_lexer=>tys_token.
+
+    METHODS peek_token3d
+      RETURNING
+        VALUE(rs_token) TYPE zcl_ac_lexer=>tys_token.
+
+    METHODS eat_token
+      RETURNING
+        VALUE(rs_token) TYPE zcl_ac_lexer=>tys_token.
+
 ENDCLASS.
 
 

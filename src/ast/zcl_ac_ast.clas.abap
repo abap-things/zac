@@ -1,20 +1,22 @@
-class ZCL_AC_AST definition
-  public
-  abstract
-  create public .
+CLASS zcl_ac_ast DEFINITION
+  PUBLIC
+  ABSTRACT
+  CREATE PUBLIC.
 
-public section.
+  PUBLIC SECTION.
+    METHODS constructor
+      IMPORTING
+        !is_first_token TYPE zcl_ac_lexer=>tys_token.
 
-  methods CONSTRUCTOR
-    importing
-      !IS_FIRST_TOKEN type ZCL_AC_LEXER=>TYS_TOKEN .
-  methods GET_FIRST_TOKEN
-    returning
-      value(RS_TOKEN) type ZCL_AC_LEXER=>TYS_TOKEN .
+    METHODS get_first_token
+      RETURNING
+        VALUE(rs_token) TYPE zcl_ac_lexer=>tys_token.
+
   PROTECTED SECTION.
 
   PRIVATE SECTION.
     DATA ms_first_token TYPE zcl_ac_lexer=>tys_token.
+
 ENDCLASS.
 
 

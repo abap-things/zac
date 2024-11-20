@@ -1,19 +1,17 @@
-class ZCL_AC_AST_VAR definition
-  public
-  inheriting from ZCL_AC_AST_EVAL
-  final
-  create public .
+CLASS zcl_ac_ast_var DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_ac_ast_eval
+  FINAL
+  CREATE PUBLIC.
 
-public section.
+  PUBLIC SECTION.
+    METHODS constructor
+      IMPORTING
+        !is_token TYPE zcl_ac_lexer=>tys_token.
 
-  methods CONSTRUCTOR
-    importing
-      !IS_TOKEN type ZCL_AC_LEXER=>TYS_TOKEN .
+    METHODS evaluate REDEFINITION.
+    METHODS get_class REDEFINITION.
 
-  methods EVALUATE
-    redefinition .
-  methods GET_CLASS
-    redefinition .
   PROTECTED SECTION.
 
   PRIVATE SECTION.

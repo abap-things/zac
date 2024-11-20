@@ -1,17 +1,16 @@
-class ZCL_AC_AST_CONTINUE definition
-  public
-  inheriting from ZCL_AC_AST_EXEC
-  final
-  create public .
+CLASS zcl_ac_ast_continue DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_ac_ast_exec
+  FINAL
+  CREATE PUBLIC.
 
-public section.
+  PUBLIC SECTION.
+    METHODS constructor
+      IMPORTING
+        !is_text_token TYPE zcl_ac_lexer=>tys_token.
 
-  methods CONSTRUCTOR
-    importing
-      !IS_TEXT_TOKEN type ZCL_AC_LEXER=>TYS_TOKEN .
+    METHODS execute REDEFINITION.
 
-  methods EXECUTE
-    redefinition .
   PROTECTED SECTION.
 
   PRIVATE SECTION.
@@ -23,7 +22,7 @@ ENDCLASS.
 CLASS ZCL_AC_AST_CONTINUE IMPLEMENTATION.
 
 
-  METHOD CONSTRUCTOR.
+  METHOD constructor.
     super->constructor( is_text_token ).
   ENDMETHOD.
 

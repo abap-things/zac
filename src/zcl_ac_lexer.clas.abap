@@ -1,12 +1,12 @@
 CLASS zcl_ac_lexer DEFINITION
   PUBLIC
   FINAL
-  CREATE PRIVATE .
+  CREATE PRIVATE.
 
   PUBLIC SECTION.
-
     TYPES:
-      tyt_input TYPE STANDARD TABLE OF string WITH DEFAULT KEY .
+      tyt_input TYPE STANDARD TABLE OF string WITH DEFAULT KEY.
+
     TYPES:
       BEGIN OF tys_token,
         type        TYPE string,
@@ -14,24 +14,28 @@ CLASS zcl_ac_lexer DEFINITION
         typed_value TYPE REF TO data,
         row         TYPE i,
         col         TYPE i,
-      END OF tys_token .
+      END OF tys_token.
+
     TYPES:
-      tyt_token TYPE STANDARD TABLE OF tys_token WITH DEFAULT KEY .
+      tyt_token TYPE STANDARD TABLE OF tys_token WITH DEFAULT KEY.
+
     TYPES:
       BEGIN OF tys_regex2token,
         pattern    TYPE string,
         token_type TYPE string,
         regex      TYPE REF TO cl_abap_regex,
-      END OF tys_regex2token .
+      END OF tys_regex2token.
+
     TYPES:
-      tyt_regex2token TYPE STANDARD TABLE OF tys_regex2token WITH DEFAULT KEY .
+      tyt_regex2token TYPE STANDARD TABLE OF tys_regex2token WITH DEFAULT KEY.
 
     CONSTANTS:
       BEGIN OF cs_key_string,
         code_prefix         TYPE string VALUE `*!`,
         subst_prefix_regex  TYPE string VALUE `\{`,
         subst_postfix_regex TYPE string VALUE `\}`,
-      END OF cs_key_string .
+      END OF cs_key_string.
+
     CONSTANTS:
       BEGIN OF cs_token_type,
         space_type      TYPE string VALUE `SPACE`,
@@ -53,7 +57,7 @@ CLASS zcl_ac_lexer DEFINITION
         unexpected      TYPE string VALUE `UNEXPECTED`,
         comment         TYPE string VALUE `COMMENT`,
         eof             TYPE string VALUE `EOF`,
-      END OF cs_token_type .
+      END OF cs_token_type.
 
     CLASS-METHODS tokenize_script
       IMPORTING
@@ -67,7 +71,8 @@ CLASS zcl_ac_lexer DEFINITION
       RETURNING
         VALUE(rt_token) TYPE tyt_token .
 
-    CLASS-METHODS class_constructor .
+    CLASS-METHODS class_constructor.
+
   PROTECTED SECTION.
 
   PRIVATE SECTION.
@@ -112,7 +117,8 @@ CLASS zcl_ac_lexer DEFINITION
 
     CLASS-METHODS classify_ids
       CHANGING
-        ct_token TYPE tyt_token .
+        ct_token TYPE tyt_token.
+
 ENDCLASS.
 
 

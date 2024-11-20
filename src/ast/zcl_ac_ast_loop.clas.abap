@@ -1,29 +1,29 @@
-class ZCL_AC_AST_LOOP definition
-  public
-  inheriting from ZCL_AC_AST_EXEC
-  final
-  create public .
+CLASS zcl_ac_ast_loop DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_ac_ast_exec
+  FINAL
+  CREATE PUBLIC.
 
-public section.
-
-  types:
-    BEGIN OF tys_if_branch,
+  PUBLIC SECTION.
+    TYPES:
+      BEGIN OF tys_if_branch,
         cond      TYPE REF TO zcl_ac_ast_eval,
         stmt_list TYPE REF TO zcl_ac_ast_stmt_list,
-      END OF tys_if_branch .
-  types:
-    tyt_if_branch TYPE STANDARD TABLE OF tys_if_branch WITH DEFAULT KEY .
+      END OF tys_if_branch.
 
-  methods CONSTRUCTOR
-    importing
-      !IS_FIRST_TOKEN type ZCL_AC_LEXER=>TYS_TOKEN
-      !IV_TABLE_VARIABLE type STRING
-      !IV_LINE_VARIABLE type STRING
-      !IO_COND type ref to ZCL_AC_AST_EVAL optional
-      !IO_BODY type ref to ZCL_AC_AST_STMT_LIST .
+    TYPES:
+      tyt_if_branch TYPE STANDARD TABLE OF tys_if_branch WITH DEFAULT KEY.
 
-  methods EXECUTE
-    redefinition .
+    METHODS constructor
+      IMPORTING
+        !is_first_token    TYPE zcl_ac_lexer=>tys_token
+        !iv_table_variable TYPE string
+        !iv_line_variable  TYPE string
+        !io_cond           TYPE REF TO zcl_ac_ast_eval OPTIONAL
+        !io_body           TYPE REF TO zcl_ac_ast_stmt_list.
+
+    METHODS execute REDEFINITION.
+
   PROTECTED SECTION.
 
   PRIVATE SECTION.
@@ -31,6 +31,7 @@ public section.
     DATA mv_line_variable TYPE string.
     DATA mo_cond TYPE REF TO zcl_ac_ast_eval.
     DATA mo_body TYPE REF TO zcl_ac_ast_stmt_list.
+
 ENDCLASS.
 
 

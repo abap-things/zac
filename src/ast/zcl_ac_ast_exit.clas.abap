@@ -1,17 +1,17 @@
-class ZCL_AC_AST_EXIT definition
-  public
-  inheriting from ZCL_AC_AST_EXEC
-  final
-  create public .
+CLASS zcl_ac_ast_exit DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_ac_ast_exec
+  FINAL
+  CREATE PUBLIC.
 
-public section.
+  PUBLIC SECTION.
 
-  methods CONSTRUCTOR
-    importing
-      !IS_TEXT_TOKEN type ZCL_AC_LEXER=>TYS_TOKEN .
+    METHODS constructor
+      IMPORTING
+        !is_text_token TYPE zcl_ac_lexer=>tys_token.
 
-  methods EXECUTE
-    redefinition .
+    METHODS execute REDEFINITION.
+
   PROTECTED SECTION.
 
   PRIVATE SECTION.

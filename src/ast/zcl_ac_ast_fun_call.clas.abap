@@ -1,32 +1,32 @@
-class ZCL_AC_AST_FUN_CALL definition
-  public
-  inheriting from ZCL_AC_AST_EVAL
-  final
-  create public .
+CLASS zcl_ac_ast_fun_call DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_ac_ast_eval
+  FINAL
+  CREATE PUBLIC.
 
-public section.
-
-  types:
-    BEGIN OF tys_named_param,
+  PUBLIC SECTION.
+    TYPES:
+      BEGIN OF tys_named_param,
         name TYPE abap_parmname,
         ast  TYPE REF TO zcl_ac_ast_eval,
-      END OF tys_named_param .
-  types:
-    tyt_named_param TYPE STANDARD TABLE OF tys_named_param WITH DEFAULT KEY .
+      END OF tys_named_param.
 
-  methods CONSTRUCTOR
-    importing
-      !IS_FUNCTION_TOKEN type ZCL_AC_LEXER=>TYS_TOKEN
-      !IO_UNNAMED_PARAM type ref to ZCL_AC_AST_EVAL optional
-      !IT_NAMED_PARAM type TYT_NAMED_PARAM optional
-    raising
-      ZCX_AC_EXCEPTION .
-  class-methods CLASS_CONSTRUCTOR .
+    TYPES:
+      tyt_named_param TYPE STANDARD TABLE OF tys_named_param WITH DEFAULT KEY.
 
-  methods EVALUATE
-    redefinition .
-  methods GET_CLASS
-    redefinition .
+    METHODS constructor
+      IMPORTING
+        !is_function_token TYPE zcl_ac_lexer=>tys_token
+        !io_unnamed_param  TYPE REF TO zcl_ac_ast_eval OPTIONAL
+        !it_named_param    TYPE tyt_named_param OPTIONAL
+      RAISING
+        zcx_ac_exception.
+
+    CLASS-METHODS class_constructor.
+
+    METHODS evaluate REDEFINITION.
+    METHODS get_class REDEFINITION.
+
   PROTECTED SECTION.
 
   PRIVATE SECTION.

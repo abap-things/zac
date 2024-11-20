@@ -1,20 +1,19 @@
-class ZCL_AC_AST_STMT_LIST definition
-  public
-  inheriting from ZCL_AC_AST_EXEC
-  final
-  create public .
+CLASS zcl_ac_ast_stmt_list DEFINITION
+  PUBLIC
+  INHERITING FROM zcl_ac_ast_exec
+  FINAL
+  CREATE PUBLIC.
 
-public section.
+  PUBLIC SECTION.
+    TYPES:
+      tyt_stmt TYPE STANDARD TABLE OF REF TO zcl_ac_ast_exec WITH DEFAULT KEY.
 
-  types:
-    tyt_stmt TYPE STANDARD TABLE OF REF TO zcl_ac_ast_exec WITH DEFAULT KEY .
+    METHODS constructor
+      IMPORTING
+        !it_stmt TYPE tyt_stmt.
 
-  methods CONSTRUCTOR
-    importing
-      !IT_STMT type TYT_STMT .
+    METHODS execute REDEFINITION.
 
-  methods EXECUTE
-    redefinition .
   PROTECTED SECTION.
 
   PRIVATE SECTION.

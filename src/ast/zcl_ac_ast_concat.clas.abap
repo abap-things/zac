@@ -2,22 +2,18 @@ CLASS zcl_ac_ast_concat DEFINITION
   PUBLIC
   INHERITING FROM zcl_ac_ast_eval
   FINAL
-  CREATE PUBLIC .
+  CREATE PUBLIC.
 
   PUBLIC SECTION.
-
     TYPES:
-      tyt_ast TYPE STANDARD TABLE OF REF TO zcl_ac_ast_eval WITH DEFAULT KEY .
+      tyt_ast TYPE STANDARD TABLE OF REF TO zcl_ac_ast_eval WITH DEFAULT KEY.
 
     METHODS constructor
       IMPORTING
-        !it_ast TYPE tyt_ast .
+        !it_ast TYPE tyt_ast.
 
-    METHODS evaluate
-        REDEFINITION .
-
-    METHODS get_class
-        REDEFINITION .
+    METHODS evaluate REDEFINITION.
+    METHODS get_class REDEFINITION.
 
   PROTECTED SECTION.
 

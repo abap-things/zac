@@ -1,39 +1,43 @@
 CLASS zcl_ac_fun_library DEFINITION
   PUBLIC
   FINAL
-  CREATE PUBLIC .
+  CREATE PUBLIC.
 
   PUBLIC SECTION.
-
     CLASS-METHODS ac_lines
       IMPORTING
         !it_table        TYPE ANY TABLE
       RETURNING
-        VALUE(rv_result) TYPE i .
+        VALUE(rv_result) TYPE i.
+
     CLASS-METHODS ac_substring
       IMPORTING
         !iv_val          TYPE string
         !iv_off          TYPE i
         !iv_len          TYPE i
       RETURNING
-        VALUE(rv_result) TYPE string .
+        VALUE(rv_result) TYPE string.
+
     CLASS-METHODS ac_left
       IMPORTING
         !iv_val          TYPE string
         !iv_len          TYPE i
       RETURNING
-        VALUE(rv_result) TYPE string .
+        VALUE(rv_result) TYPE string.
+
     CLASS-METHODS ac_alpha_out
       IMPORTING
         !iv_val          TYPE string
       RETURNING
-        VALUE(rv_result) TYPE string .
+        VALUE(rv_result) TYPE string.
+
     CLASS-METHODS ac_concat
       IMPORTING
         !iv_val1         TYPE string
         !iv_val2         TYPE string
       RETURNING
-        VALUE(rv_result) TYPE string .
+        VALUE(rv_result) TYPE string.
+
     CLASS-METHODS ac_replace
       IMPORTING
         !iv_val          TYPE string
@@ -41,14 +45,18 @@ CLASS zcl_ac_fun_library DEFINITION
         !iv_with         TYPE string
         !iv_occ          TYPE i DEFAULT 1
       RETURNING
-        VALUE(rv_result) TYPE string .
+        VALUE(rv_result) TYPE string.
+
     CLASS-METHODS ac_strlen
       IMPORTING
         !iv_val          TYPE string
       RETURNING
-        VALUE(rv_result) TYPE i .
+        VALUE(rv_result) TYPE i.
+
   PROTECTED SECTION.
+
   PRIVATE SECTION.
+
 ENDCLASS.
 
 
