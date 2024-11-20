@@ -8,7 +8,7 @@ The tool works as follows:
 3. In the same program, we execute the template transformation and obtain the text (ABAP code) in the format we desire.
 
 ## Examples
-### STVARV Wrapper class
+### STVARV wrapper class
 For example, this section demonstrates code generation for static access to 'stvarv' parameters. The sample of its usage can be found here: 
 1. main program: https://github.com/abap-things/zac/blob/master/src/samples/zac_sample_stvarv_1.prog.abap
 2. code template: https://github.com/abap-things/zac/blob/master/src/samples/zac_sample_stvarv_template_1.prog.abap
