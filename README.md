@@ -8,11 +8,15 @@ The tool works as follows:
 3. In the same program, we execute the template transformation and obtain the text (ABAP code) in the format we desire.
 
 ## Examples
-### STVARV
+### STVARV Wrapper class
 For example, this section demonstrates code generation for static access to 'stvarv' parameters. The sample of its usage can be found here: 
 1. main program: https://github.com/abap-things/zac/blob/master/src/samples/zac_sample_stvarv_1.prog.abap
 2. code template: https://github.com/abap-things/zac/blob/master/src/samples/zac_sample_stvarv_template_1.prog.abap
 3. result: https://github.com/abap-things/zac/blob/master/src/samples/result/zcl_ac_stvarv_sample_1.clas.abap
+
+### Expression calculation
+As a side effect of parser we can parse and evaluate arythmetic, logical or string extressions.
+1. main program: https://github.com/abap-things/zac/blob/master/src/samples/zac_sample_calc_expr_2.prog.abap
 
 ## Code template
 A code template consists of two text categories: static text with possible substitution elements and script language elements. Script language elements are prefixed with a predefined comment string, while static text includes all other types of text. The template is processed sequentially: static text is output as is, substitution elements are replaced with their current variable values, and script elements are executed in a classic imperative mode.
