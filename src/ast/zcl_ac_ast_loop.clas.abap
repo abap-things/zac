@@ -68,9 +68,8 @@ CLASS ZCL_AC_AST_LOOP IMPLEMENTATION.
 
       IF mo_cond IS BOUND.
         io_data_provider->set_value(
-          EXPORTING
-            iv_variable_name = 'TABLE_LINE'
-            iv_value         = <ls_line>
+          iv_variable_name = 'TABLE_LINE'
+          iv_value         = <ls_line>
         ).
 
         DATA(lv_value) = mo_cond->evaluate( io_data_provider ).
@@ -79,9 +78,8 @@ CLASS ZCL_AC_AST_LOOP IMPLEMENTATION.
       ENDIF.
 
       io_data_provider->set_value(
-        EXPORTING
-          iv_variable_name = mv_line_variable
-          iv_value         = <ls_line>
+        iv_variable_name = mv_line_variable
+        iv_value         = <ls_line>
       ).
 
       DATA(lv_exec_state) = mo_body->execute(
