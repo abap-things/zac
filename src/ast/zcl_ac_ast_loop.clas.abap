@@ -61,9 +61,16 @@ CLASS ZCL_AC_AST_LOOP IMPLEMENTATION.
     ENDIF.
 
     LOOP AT <lt_table> ASSIGNING FIELD-SYMBOL(<ls_line>).
+      DATA(lv_sy_tabix) = sy-tabix.
+
       io_data_provider->set_value(
         iv_variable_name = 'SY_TABIX'
-        iv_value         = sy-tabix
+        iv_value         = lv_sy_tabix
+      ).
+
+      io_data_provider->set_value(
+        iv_variable_name = mv_line_variable
+        iv_value         = <ls_line>
       ).
 
       IF mo_cond IS BOUND.
@@ -77,10 +84,6 @@ CLASS ZCL_AC_AST_LOOP IMPLEMENTATION.
         CHECK <lv_value> = abap_true.
       ENDIF.
 
-      io_data_provider->set_value(
-        iv_variable_name = mv_line_variable
-        iv_value         = <ls_line>
-      ).
 
       DATA(lv_exec_state) = mo_body->execute(
         io_writer        = io_writer
