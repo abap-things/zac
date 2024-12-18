@@ -3,9 +3,9 @@
  <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
   <asx:values>
    <VSEOCLASS>
-    <CLSNAME>ZCL_AC_BAPI_MATERIAL_GET_DETAI</CLSNAME>
+    <CLSNAME>ZCL_AC_BAPI_PO_CREATE</CLSNAME>
     <LANGU>R</LANGU>
-    <DESCRIPT>BAPI_MATERIAL_GET_DETAIL wrapper</DESCRIPT>
+    <DESCRIPT>BAPI_PO_CREATE wrapper</DESCRIPT>
     <STATE>1</STATE>
     <FIXPT>X</FIXPT>
     <UNICODE>X</UNICODE>
