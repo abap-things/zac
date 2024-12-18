@@ -41,6 +41,14 @@ CLASS {class_name} DEFINITION
     dummy.
 
     METHODS:
+*!  LOOP AT gt_tab INTO DATA(gs_tab) WHERE parameter <> 'RETURN' AND optional = abap_true.
+*!    gv_req_method_name = ac_left( iv_val = gs_tab-parameter iv_len = 26 ).
+      req_{gv_req_method_name},
+*!  ENDLOOP.
+*!  LOOP AT gt_exp INTO DATA(gs_exp) WHERE parameter <> 'RETURN'..
+*!    gv_req_method_name = ac_left( iv_val = gs_exp-parameter iv_len = 26 ).
+      req_{gv_req_method_name},
+*!  ENDLOOP.
       call.
 
   PRIVATE SECTION.
@@ -65,6 +73,21 @@ ENDCLASS.
 
 
 CLASS {class_name} IMPLEMENTATION.
+*!  LOOP AT gt_tab INTO DATA(gs_tab) WHERE parameter <> 'RETURN' AND optional = abap_true.
+*!    gv_req_method_name = ac_left( iv_val = gs_tab-parameter iv_len = 26 ).
+  METHOD  req_{gv_req_method_name}.
+    ms_requested-{gs_tab-parameter} = abap_true.
+  ENDMETHOD.
+
+*!  ENDLOOP.
+*!  LOOP AT gt_exp INTO DATA(gs_exp) WHERE parameter <> 'RETURN'.
+*!    gv_req_method_name = ac_left( iv_val = gs_exp-parameter iv_len = 26 ).
+  METHOD  req_{gv_req_method_name}.
+    ms_requested-{gs_exp-parameter} = abap_true.
+  ENDMETHOD.
+
+*!  ENDLOOP.
+
   METHOD prepare_parmbind.
 *   importing
 *!  LOOP AT gt_imp INTO DATA(gs_imp).
@@ -124,7 +147,6 @@ CLASS {class_name} IMPLEMENTATION.
 *!  ENDIF.
 
 *!  ENDLOOP.
-
     ENDMETHOD.
 
     METHOD call.

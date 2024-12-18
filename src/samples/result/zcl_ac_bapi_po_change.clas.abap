@@ -8,72 +8,115 @@ CLASS zcl_ac_bapi_po_change DEFINITION
     DATA:
 *     importing
       purchaseorder          TYPE bapimepoheader-po_number,
-      poheader               TYPE bapimepoheader, " optional
-      poheaderx              TYPE bapimepoheaderx, " optional
-      poaddrvendor           TYPE bapimepoaddrvendor, " optional
-      testrun                TYPE bapiflag-bapiflag, " optional
-      memory_uncomplete      TYPE bapiflag-bapiflag, " optional
-      memory_complete        TYPE bapiflag-bapiflag, " optional
-      poexpimpheader         TYPE bapieikp, " optional
-      poexpimpheaderx        TYPE bapieikpx, " optional
-      versions               TYPE bapimedcm, " optional
-      no_messaging           TYPE bapiflag-bapiflag, " optional
-      no_message_req         TYPE bapiflag-bapiflag, " optional
-      no_authority           TYPE bapiflag-bapiflag, " optional
-      no_price_from_po       TYPE bapiflag-bapiflag, " optional
-      park_uncomplete        TYPE bapiflag-bapiflag, " optional
-      park_complete          TYPE bapiflag-bapiflag, " optional
+      poheader               TYPE bapimepoheader, "optional
+      poheaderx              TYPE bapimepoheaderx, "optional
+      poaddrvendor           TYPE bapimepoaddrvendor, "optional
+      testrun                TYPE bapiflag-bapiflag, "optional
+      memory_uncomplete      TYPE bapiflag-bapiflag, "optional
+      memory_complete        TYPE bapiflag-bapiflag, "optional
+      poexpimpheader         TYPE bapieikp, "optional
+      poexpimpheaderx        TYPE bapieikpx, "optional
+      versions               TYPE bapimedcm, "optional
+      no_messaging           TYPE bapiflag-bapiflag, "optional
+      no_message_req         TYPE bapiflag-bapiflag, "optional
+      no_authority           TYPE bapiflag-bapiflag, "optional
+      no_price_from_po       TYPE bapiflag-bapiflag, "optional
+      park_uncomplete        TYPE bapiflag-bapiflag, "optional
+      park_complete          TYPE bapiflag-bapiflag, "optional
 *     exporting
       expheader              TYPE bapimepoheader,
       exppoexpimpheader      TYPE bapieikp,
 *     changing
 *     tables
-      return                 TYPE STANDARD TABLE OF bapiret2 WITH EMPTY KEY, " optional
-      poitem                 TYPE STANDARD TABLE OF bapimepoitem WITH EMPTY KEY, " optional
-      poitemx                TYPE STANDARD TABLE OF bapimepoitemx WITH EMPTY KEY, " optional
-      poaddrdelivery         TYPE STANDARD TABLE OF bapimepoaddrdelivery WITH EMPTY KEY, " optional
-      poschedule             TYPE STANDARD TABLE OF bapimeposchedule WITH EMPTY KEY, " optional
-      poschedulex            TYPE STANDARD TABLE OF bapimeposchedulx WITH EMPTY KEY, " optional
-      poaccount              TYPE STANDARD TABLE OF bapimepoaccount WITH EMPTY KEY, " optional
-      poaccountprofitsegment TYPE STANDARD TABLE OF bapimepoaccountprofitsegment WITH EMPTY KEY, " optional
-      poaccountx             TYPE STANDARD TABLE OF bapimepoaccountx WITH EMPTY KEY, " optional
-      pocondheader           TYPE STANDARD TABLE OF bapimepocondheader WITH EMPTY KEY, " optional
-      pocondheaderx          TYPE STANDARD TABLE OF bapimepocondheaderx WITH EMPTY KEY, " optional
-      pocond                 TYPE STANDARD TABLE OF bapimepocond WITH EMPTY KEY, " optional
-      pocondx                TYPE STANDARD TABLE OF bapimepocondx WITH EMPTY KEY, " optional
-      polimits               TYPE STANDARD TABLE OF bapiesuhc WITH EMPTY KEY, " optional
-      pocontractlimits       TYPE STANDARD TABLE OF bapiesucc WITH EMPTY KEY, " optional
-      poservices             TYPE STANDARD TABLE OF bapiesllc WITH EMPTY KEY, " optional
-      posrvaccessvalues      TYPE STANDARD TABLE OF bapiesklc WITH EMPTY KEY, " optional
-      poservicestext         TYPE STANDARD TABLE OF bapieslltx WITH EMPTY KEY, " optional
-      extensionin            TYPE STANDARD TABLE OF bapiparex WITH EMPTY KEY, " optional
-      extensionout           TYPE STANDARD TABLE OF bapiparex WITH EMPTY KEY, " optional
-      poexpimpitem           TYPE STANDARD TABLE OF bapieipo WITH EMPTY KEY, " optional
-      poexpimpitemx          TYPE STANDARD TABLE OF bapieipox WITH EMPTY KEY, " optional
-      potextheader           TYPE STANDARD TABLE OF bapimepotextheader WITH EMPTY KEY, " optional
-      potextitem             TYPE STANDARD TABLE OF bapimepotext WITH EMPTY KEY, " optional
-      allversions            TYPE STANDARD TABLE OF bapimedcm_allversions WITH EMPTY KEY, " optional
-      popartner              TYPE STANDARD TABLE OF bapiekkop WITH EMPTY KEY, " optional
-      pocomponents           TYPE STANDARD TABLE OF bapimepocomponent WITH EMPTY KEY, " optional
-      pocomponentsx          TYPE STANDARD TABLE OF bapimepocomponentx WITH EMPTY KEY, " optional
-      poshipping             TYPE STANDARD TABLE OF bapiitemship WITH EMPTY KEY, " optional
-      poshippingx            TYPE STANDARD TABLE OF bapiitemshipx WITH EMPTY KEY, " optional
-      poshippingexp          TYPE STANDARD TABLE OF bapimeposhippexp WITH EMPTY KEY, " optional
-      pohistory              TYPE STANDARD TABLE OF bapiekbe WITH EMPTY KEY, " optional
-      pohistory_totals       TYPE STANDARD TABLE OF bapiekbes WITH EMPTY KEY, " optional
-      poconfirmation         TYPE STANDARD TABLE OF bapiekes WITH EMPTY KEY, " optional
-      serialnumber           TYPE STANDARD TABLE OF bapimeposerialno WITH EMPTY KEY, " optional
-      serialnumberx          TYPE STANDARD TABLE OF bapimeposerialnox WITH EMPTY KEY, " optional
-      invplanheader          TYPE STANDARD TABLE OF bapi_invoice_plan_header WITH EMPTY KEY, " optional
-      invplanheaderx         TYPE STANDARD TABLE OF bapi_invoice_plan_headerx WITH EMPTY KEY, " optional
-      invplanitem            TYPE STANDARD TABLE OF bapi_invoice_plan_item WITH EMPTY KEY, " optional
-      invplanitemx           TYPE STANDARD TABLE OF bapi_invoice_plan_itemx WITH EMPTY KEY, " optional
-      pohistory_ma           TYPE STANDARD TABLE OF bapiekbe_ma WITH EMPTY KEY, " optional
-      nfmetallitms           TYPE STANDARD TABLE OF /nfm/bapidocitm WITH EMPTY KEY, " optional
+      return                 TYPE STANDARD TABLE OF bapiret2 WITH EMPTY KEY, "optional
+      poitem                 TYPE STANDARD TABLE OF bapimepoitem WITH EMPTY KEY, "optional
+      poitemx                TYPE STANDARD TABLE OF bapimepoitemx WITH EMPTY KEY, "optional
+      poaddrdelivery         TYPE STANDARD TABLE OF bapimepoaddrdelivery WITH EMPTY KEY, "optional
+      poschedule             TYPE STANDARD TABLE OF bapimeposchedule WITH EMPTY KEY, "optional
+      poschedulex            TYPE STANDARD TABLE OF bapimeposchedulx WITH EMPTY KEY, "optional
+      poaccount              TYPE STANDARD TABLE OF bapimepoaccount WITH EMPTY KEY, "optional
+      poaccountprofitsegment TYPE STANDARD TABLE OF bapimepoaccountprofitsegment WITH EMPTY KEY, "optional
+      poaccountx             TYPE STANDARD TABLE OF bapimepoaccountx WITH EMPTY KEY, "optional
+      pocondheader           TYPE STANDARD TABLE OF bapimepocondheader WITH EMPTY KEY, "optional
+      pocondheaderx          TYPE STANDARD TABLE OF bapimepocondheaderx WITH EMPTY KEY, "optional
+      pocond                 TYPE STANDARD TABLE OF bapimepocond WITH EMPTY KEY, "optional
+      pocondx                TYPE STANDARD TABLE OF bapimepocondx WITH EMPTY KEY, "optional
+      polimits               TYPE STANDARD TABLE OF bapiesuhc WITH EMPTY KEY, "optional
+      pocontractlimits       TYPE STANDARD TABLE OF bapiesucc WITH EMPTY KEY, "optional
+      poservices             TYPE STANDARD TABLE OF bapiesllc WITH EMPTY KEY, "optional
+      posrvaccessvalues      TYPE STANDARD TABLE OF bapiesklc WITH EMPTY KEY, "optional
+      poservicestext         TYPE STANDARD TABLE OF bapieslltx WITH EMPTY KEY, "optional
+      extensionin            TYPE STANDARD TABLE OF bapiparex WITH EMPTY KEY, "optional
+      extensionout           TYPE STANDARD TABLE OF bapiparex WITH EMPTY KEY, "optional
+      poexpimpitem           TYPE STANDARD TABLE OF bapieipo WITH EMPTY KEY, "optional
+      poexpimpitemx          TYPE STANDARD TABLE OF bapieipox WITH EMPTY KEY, "optional
+      potextheader           TYPE STANDARD TABLE OF bapimepotextheader WITH EMPTY KEY, "optional
+      potextitem             TYPE STANDARD TABLE OF bapimepotext WITH EMPTY KEY, "optional
+      allversions            TYPE STANDARD TABLE OF bapimedcm_allversions WITH EMPTY KEY, "optional
+      popartner              TYPE STANDARD TABLE OF bapiekkop WITH EMPTY KEY, "optional
+      pocomponents           TYPE STANDARD TABLE OF bapimepocomponent WITH EMPTY KEY, "optional
+      pocomponentsx          TYPE STANDARD TABLE OF bapimepocomponentx WITH EMPTY KEY, "optional
+      poshipping             TYPE STANDARD TABLE OF bapiitemship WITH EMPTY KEY, "optional
+      poshippingx            TYPE STANDARD TABLE OF bapiitemshipx WITH EMPTY KEY, "optional
+      poshippingexp          TYPE STANDARD TABLE OF bapimeposhippexp WITH EMPTY KEY, "optional
+      pohistory              TYPE STANDARD TABLE OF bapiekbe WITH EMPTY KEY, "optional
+      pohistory_totals       TYPE STANDARD TABLE OF bapiekbes WITH EMPTY KEY, "optional
+      poconfirmation         TYPE STANDARD TABLE OF bapiekes WITH EMPTY KEY, "optional
+      serialnumber           TYPE STANDARD TABLE OF bapimeposerialno WITH EMPTY KEY, "optional
+      serialnumberx          TYPE STANDARD TABLE OF bapimeposerialnox WITH EMPTY KEY, "optional
+      invplanheader          TYPE STANDARD TABLE OF bapi_invoice_plan_header WITH EMPTY KEY, "optional
+      invplanheaderx         TYPE STANDARD TABLE OF bapi_invoice_plan_headerx WITH EMPTY KEY, "optional
+      invplanitem            TYPE STANDARD TABLE OF bapi_invoice_plan_item WITH EMPTY KEY, "optional
+      invplanitemx           TYPE STANDARD TABLE OF bapi_invoice_plan_itemx WITH EMPTY KEY, "optional
+      pohistory_ma           TYPE STANDARD TABLE OF bapiekbe_ma WITH EMPTY KEY, "optional
+      nfmetallitms           TYPE STANDARD TABLE OF /nfm/bapidocitm WITH EMPTY KEY, "optional
 *     dummy to beatify
       dummy.
 
     METHODS:
+      req_poitem,
+      req_poitemx,
+      req_poaddrdelivery,
+      req_poschedule,
+      req_poschedulex,
+      req_poaccount,
+      req_poaccountprofitsegment,
+      req_poaccountx,
+      req_pocondheader,
+      req_pocondheaderx,
+      req_pocond,
+      req_pocondx,
+      req_polimits,
+      req_pocontractlimits,
+      req_poservices,
+      req_posrvaccessvalues,
+      req_poservicestext,
+      req_extensionin,
+      req_extensionout,
+      req_poexpimpitem,
+      req_poexpimpitemx,
+      req_potextheader,
+      req_potextitem,
+      req_allversions,
+      req_popartner,
+      req_pocomponents,
+      req_pocomponentsx,
+      req_poshipping,
+      req_poshippingx,
+      req_poshippingexp,
+      req_pohistory,
+      req_pohistory_totals,
+      req_poconfirmation,
+      req_serialnumber,
+      req_serialnumberx,
+      req_invplanheader,
+      req_invplanheaderx,
+      req_invplanitem,
+      req_invplanitemx,
+      req_pohistory_ma,
+      req_nfmetallitms,
+      req_expheader,
+      req_exppoexpimpheader,
       call.
 
   PRIVATE SECTION.
@@ -567,6 +610,220 @@ CLASS ZCL_AC_BAPI_PO_CHANGE IMPLEMENTATION.
         value = REF #( nfmetallitms ) ) INTO TABLE rt_parmbind.
     ENDIF.
 
+  ENDMETHOD.
 
+
+  METHOD  req_poexpimpitem.
+    ms_requested-poexpimpitem = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_poexpimpitemx.
+    ms_requested-poexpimpitemx = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_pohistory.
+    ms_requested-pohistory = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_pohistory_ma.
+    ms_requested-pohistory_ma = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_pohistory_totals.
+    ms_requested-pohistory_totals = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_poitem.
+    ms_requested-poitem = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_poitemx.
+    ms_requested-poitemx = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_polimits.
+    ms_requested-polimits = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_popartner.
+    ms_requested-popartner = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_poschedule.
+    ms_requested-poschedule = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_poschedulex.
+    ms_requested-poschedulex = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_poservices.
+    ms_requested-poservices = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_poservicestext.
+    ms_requested-poservicestext = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_poshipping.
+    ms_requested-poshipping = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_poshippingexp.
+    ms_requested-poshippingexp = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_poshippingx.
+    ms_requested-poshippingx = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_posrvaccessvalues.
+    ms_requested-posrvaccessvalues = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_potextheader.
+    ms_requested-potextheader = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_potextitem.
+    ms_requested-potextitem = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_serialnumber.
+    ms_requested-serialnumber = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_serialnumberx.
+    ms_requested-serialnumberx = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_pocontractlimits.
+    ms_requested-pocontractlimits = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_poconfirmation.
+    ms_requested-poconfirmation = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_pocondx.
+    ms_requested-pocondx = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_pocondheaderx.
+    ms_requested-pocondheaderx = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_pocondheader.
+    ms_requested-pocondheader = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_pocond.
+    ms_requested-pocond = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_pocomponentsx.
+    ms_requested-pocomponentsx = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_pocomponents.
+    ms_requested-pocomponents = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_poaddrdelivery.
+    ms_requested-poaddrdelivery = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_poaccountx.
+    ms_requested-poaccountx = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_poaccountprofitsegment.
+    ms_requested-poaccountprofitsegment = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_poaccount.
+    ms_requested-poaccount = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_nfmetallitms.
+    ms_requested-nfmetallitms = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_invplanitemx.
+    ms_requested-invplanitemx = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_invplanitem.
+    ms_requested-invplanitem = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_invplanheaderx.
+    ms_requested-invplanheaderx = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_invplanheader.
+    ms_requested-invplanheader = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_extensionout.
+    ms_requested-extensionout = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_extensionin.
+    ms_requested-extensionin = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_exppoexpimpheader.
+    ms_requested-exppoexpimpheader = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_expheader.
+    ms_requested-expheader = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_allversions.
+    ms_requested-allversions = abap_true.
   ENDMETHOD.
 ENDCLASS.

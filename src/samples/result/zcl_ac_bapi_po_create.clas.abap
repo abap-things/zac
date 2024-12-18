@@ -8,35 +8,48 @@ CLASS zcl_ac_bapi_po_create DEFINITION
     DATA:
 *     importing
       po_header                  TYPE bapiekkoc,
-      po_header_add_data         TYPE bapiekkoa, " optional
-      header_add_data_relevant   TYPE bapimmpara-selection, " optional
-      po_address                 TYPE bapiaddress, " optional
-      skip_items_with_error      TYPE bapimmpara-selection VALUE 'X', " optional
-      item_add_data_relevant     TYPE bapimmpara-selection, " optional
-      header_tech_fields         TYPE bapitech, " optional
+      po_header_add_data         TYPE bapiekkoa, "optional
+      header_add_data_relevant   TYPE bapimmpara-selection, "optional
+      po_address                 TYPE bapiaddress, "optional
+      skip_items_with_error      TYPE bapimmpara-selection VALUE 'X', "optional
+      item_add_data_relevant     TYPE bapimmpara-selection, "optional
+      header_tech_fields         TYPE bapitech, "optional
 *     exporting
       purchaseorder              TYPE bapiekkoc-po_number,
 *     changing
 *     tables
-      po_items                   TYPE STANDARD TABLE OF bapiekpoc WITH EMPTY KEY, " optional
-      po_item_add_data           TYPE STANDARD TABLE OF bapiekpoa WITH EMPTY KEY, " optional
-      po_item_schedules          TYPE STANDARD TABLE OF bapieket WITH EMPTY KEY, " optional
-      po_item_account_assignment TYPE STANDARD TABLE OF bapiekkn WITH EMPTY KEY, " optional
-      po_item_text               TYPE STANDARD TABLE OF bapiekpotx WITH EMPTY KEY, " optional
-      return                     TYPE STANDARD TABLE OF bapireturn WITH EMPTY KEY, " optional
-      po_limits                  TYPE STANDARD TABLE OF bapiesuhc WITH EMPTY KEY, " optional
-      po_contract_limits         TYPE STANDARD TABLE OF bapiesucc WITH EMPTY KEY, " optional
-      po_services                TYPE STANDARD TABLE OF bapiesllc WITH EMPTY KEY, " optional
-      po_srv_accass_values       TYPE STANDARD TABLE OF bapiesklc WITH EMPTY KEY, " optional
-      po_services_text           TYPE STANDARD TABLE OF bapieslltx WITH EMPTY KEY, " optional
-      po_business_partner        TYPE STANDARD TABLE OF bapiekkop WITH EMPTY KEY, " optional
-      extensionin                TYPE STANDARD TABLE OF bapiparex WITH EMPTY KEY, " optional
-      poaddrdelivery             TYPE STANDARD TABLE OF bapimepoaddrdelivery WITH EMPTY KEY, " optional
-      nfmetallitms               TYPE STANDARD TABLE OF /nfm/bapidocitm WITH EMPTY KEY, " optional
+      po_items                   TYPE STANDARD TABLE OF bapiekpoc WITH EMPTY KEY, "optional
+      po_item_add_data           TYPE STANDARD TABLE OF bapiekpoa WITH EMPTY KEY, "optional
+      po_item_schedules          TYPE STANDARD TABLE OF bapieket WITH EMPTY KEY, "optional
+      po_item_account_assignment TYPE STANDARD TABLE OF bapiekkn WITH EMPTY KEY, "optional
+      po_item_text               TYPE STANDARD TABLE OF bapiekpotx WITH EMPTY KEY, "optional
+      return                     TYPE STANDARD TABLE OF bapireturn WITH EMPTY KEY, "optional
+      po_limits                  TYPE STANDARD TABLE OF bapiesuhc WITH EMPTY KEY, "optional
+      po_contract_limits         TYPE STANDARD TABLE OF bapiesucc WITH EMPTY KEY, "optional
+      po_services                TYPE STANDARD TABLE OF bapiesllc WITH EMPTY KEY, "optional
+      po_srv_accass_values       TYPE STANDARD TABLE OF bapiesklc WITH EMPTY KEY, "optional
+      po_services_text           TYPE STANDARD TABLE OF bapieslltx WITH EMPTY KEY, "optional
+      po_business_partner        TYPE STANDARD TABLE OF bapiekkop WITH EMPTY KEY, "optional
+      extensionin                TYPE STANDARD TABLE OF bapiparex WITH EMPTY KEY, "optional
+      poaddrdelivery             TYPE STANDARD TABLE OF bapimepoaddrdelivery WITH EMPTY KEY, "optional
+      nfmetallitms               TYPE STANDARD TABLE OF /nfm/bapidocitm WITH EMPTY KEY, "optional
 *     dummy to beatify
       dummy.
 
     METHODS:
+      req_po_item_add_data,
+      req_po_item_account_assignment,
+      req_po_item_text,
+      req_po_limits,
+      req_po_contract_limits,
+      req_po_services,
+      req_po_srv_accass_values,
+      req_po_services_text,
+      req_po_business_partner,
+      req_extensionin,
+      req_poaddrdelivery,
+      req_nfmetallitms,
+      req_purchaseorder,
       call.
 
   PRIVATE SECTION.
@@ -237,6 +250,70 @@ CLASS ZCL_AC_BAPI_PO_CREATE IMPLEMENTATION.
         value = REF #( nfmetallitms ) ) INTO TABLE rt_parmbind.
     ENDIF.
 
+  ENDMETHOD.
 
+
+  METHOD  req_extensionin.
+    ms_requested-extensionin = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_nfmetallitms.
+    ms_requested-nfmetallitms = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_poaddrdelivery.
+    ms_requested-poaddrdelivery = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_po_business_partner.
+    ms_requested-po_business_partner = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_po_contract_limits.
+    ms_requested-po_contract_limits = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_po_item_account_assignment.
+    ms_requested-po_item_account_assignment = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_po_item_add_data.
+    ms_requested-po_item_add_data = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_po_item_text.
+    ms_requested-po_item_text = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_po_limits.
+    ms_requested-po_limits = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_po_services.
+    ms_requested-po_services = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_po_services_text.
+    ms_requested-po_services_text = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_po_srv_accass_values.
+    ms_requested-po_srv_accass_values = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  req_purchaseorder.
+    ms_requested-purchaseorder = abap_true.
   ENDMETHOD.
 ENDCLASS.

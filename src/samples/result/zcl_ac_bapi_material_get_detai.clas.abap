@@ -7,12 +7,12 @@ CLASS zcl_ac_bapi_material_get_detai DEFINITION
   PUBLIC SECTION.
     DATA:
 *     importing
-      material              TYPE bapimatdet-material, " optional
-      plant                 TYPE bapimatall-plant, " optional
-      valuationarea         TYPE bapimatall-val_area, " optional
-      valuationtype         TYPE bapimatall-val_type, " optional
-      material_evg          TYPE bapimgvmatnr, " optional
-      material_long         TYPE bapimatdet-material_long, " optional
+      material              TYPE bapimatdet-material, "optional
+      plant                 TYPE bapimatall-plant, "optional
+      valuationarea         TYPE bapimatall-val_area, "optional
+      valuationtype         TYPE bapimatall-val_type, "optional
+      material_evg          TYPE bapimgvmatnr, "optional
+      material_long         TYPE bapimatdet-material_long, "optional
 *     exporting
       material_general_data TYPE bapimatdoa,
       return                TYPE bapireturn,
@@ -24,6 +24,9 @@ CLASS zcl_ac_bapi_material_get_detai DEFINITION
       dummy.
 
     METHODS:
+      rqs_material_general_data,
+      rqs_materialplantdata,
+      rqs_materialvaluationdata,
       call.
 
   PRIVATE SECTION.
@@ -130,6 +133,20 @@ CLASS ZCL_AC_BAPI_MATERIAL_GET_DETAI IMPLEMENTATION.
 
 
 *   tables
+  ENDMETHOD.
 
+
+  METHOD  rqs_materialplantdata.
+    ms_requested-materialplantdata = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  rqs_materialvaluationdata.
+    ms_requested-materialvaluationdata = abap_true.
+  ENDMETHOD.
+
+
+  METHOD  rqs_material_general_data.
+    ms_requested-material_general_data = abap_true.
   ENDMETHOD.
 ENDCLASS.
