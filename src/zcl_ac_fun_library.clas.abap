@@ -32,6 +32,7 @@ CLASS zcl_ac_fun_library DEFINITION
       IMPORTING
         !iv_val1         TYPE string
         !iv_val2         TYPE string
+        !iv_val3         TYPE string OPTIONAL
       RETURNING
         VALUE(rv_result) TYPE string .
     CLASS-METHODS ac_concat
@@ -122,7 +123,17 @@ CLASS ZCL_AC_FUN_LIBRARY IMPLEMENTATION.
       RETURN.
     ENDIF.
 
-    rv_result = iv_val2.
+    IF iv_val2 IS NOT INITIAL.
+      rv_result = iv_val2.
+      RETURN.
+    ENDIF.
+
+    IF iv_val3 IS SUPPLIED AND iv_val3 IS NOT INITIAL.
+      rv_result = iv_val3.
+      RETURN.
+    ENDIF.
+
+    rv_result = ``.
   ENDMETHOD.
 
 
