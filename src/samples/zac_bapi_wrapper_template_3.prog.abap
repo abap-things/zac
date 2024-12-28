@@ -12,13 +12,9 @@ CLASS {class_name} DEFINITION
     DATA:
 *     importing
 *!  LOOP AT gt_imp INTO DATA(gs_imp).
-*!    gv_type = ac_coalesce( iv_val1 = gs_imp-dbfield iv_val2 = gs_imp-typ ).
+*!    gv_type = ac_coalesce( iv_val1 = gs_imp-dbfield iv_val2 = gs_imp-typ iv_val3 = 'char1' ).
 *!    gv_optional_clause = ac_cond( iv_cond = gs_imp-optional iv_true_val = '"optional' ).
-*!    gv_default_clause = ''.
-*!    IF gs_imp-default <> ''.
-*!      gv_default_clause = ` VALUE ` && gs_imp-default.
-*!    ENDIF.
-    {gs_imp-parameter} TYPE {gv_type}{gv_default_clause}, {gv_optional_clause}
+    {gs_imp-parameter} TYPE {gv_type}, {gv_optional_clause}
 *!  ENDLOOP.
 *     exporting
 *!  LOOP AT gt_exp INTO DATA(gs_exp).
@@ -37,10 +33,11 @@ CLASS {class_name} DEFINITION
 *!    gv_optional_clause = ac_cond( iv_cond = gs_imp-optional iv_true_val = '"optional' ).
     {gs_tab-parameter} TYPE standard table of {gv_type} WITH empty key, {gv_optional_clause}
 *!  ENDLOOP.
-*     dummy to beatify
+*     dummy to beautify
     dummy.
 
     METHODS:
+      constructor,
 *!  LOOP AT gt_tab INTO DATA(gs_tab) WHERE parameter <> 'RETURN' AND optional = abap_true.
 *!    gv_req_method_name = ac_left( iv_val = gs_tab-parameter iv_len = 26 ).
       req_{gv_req_method_name},
@@ -49,7 +46,8 @@ CLASS {class_name} DEFINITION
 *!    gv_req_method_name = ac_left( iv_val = gs_exp-parameter iv_len = 26 ).
       req_{gv_req_method_name},
 *!  ENDLOOP.
-      call.
+      call
+        RETURNING VALUE(rv_rc) TYPE i.
 
   PRIVATE SECTION.
 *! IF ac_lines( it_table = gt_exp ) > 0.
@@ -67,12 +65,19 @@ CLASS {class_name} DEFINITION
 *!  ENDIF.
 
     METHODS:
-      prepare_parmbind RETURNING VALUE(rt_parmbind) TYPE abap_func_parmbind_tab.
+      prepare_parmbind RETURNING VALUE(rt_parmbind) TYPE abap_func_parmbind_tab,
+      prepare_excpbind RETURNING VALUE(rt_excpbind) TYPE abap_func_excpbind_tab.
 
 ENDCLASS.
 
 
 CLASS {class_name} IMPLEMENTATION.
+  METHOD  constructor.
+*!  LOOP AT gt_imp INTO DATA(gs_imp) WHERE default <> ''.
+    {gs_imp-parameter} = {gs_imp-default}.
+*!  ENDLOOP.
+  ENDMETHOD.
+
 *!  LOOP AT gt_tab INTO DATA(gs_tab) WHERE parameter <> 'RETURN' AND optional = abap_true.
 *!    gv_req_method_name = ac_left( iv_val = gs_tab-parameter iv_len = 26 ).
   METHOD  req_{gv_req_method_name}.
@@ -100,7 +105,7 @@ CLASS {class_name} IMPLEMENTATION.
 *!  ENDIF.
         INSERT VALUE #(
           name = '{gs_imp-parameter}'
-          kind = abap_func_importing
+          kind = abap_func_exporting
           value = REF #( {gs_imp-parameter} ) ) INTO TABLE rt_parmbind.
 *!  IF gs_imp-optional = abap_true.
       ENDIF.
@@ -111,7 +116,7 @@ CLASS {class_name} IMPLEMENTATION.
 *   exporting return
       INSERT VALUE #(
         name = 'RETURN'
-        kind = abap_func_exporting
+        kind = abap_func_importing
         value = REF #( return ) ) INTO TABLE rt_parmbind.
 
 *!  ENDLOOP.
@@ -120,7 +125,7 @@ CLASS {class_name} IMPLEMENTATION.
       IF ms_requested-{gs_exp-parameter} = abap_true.
         INSERT VALUE #(
           name = '{gs_exp-parameter}'
-          kind = abap_func_exporting
+          kind = abap_func_importing
           value = REF #( {gs_exp-parameter} ) ) INTO TABLE rt_parmbind.
       ENDIF.
 
@@ -131,8 +136,8 @@ CLASS {class_name} IMPLEMENTATION.
         name = 'RETURN'
         kind = abap_func_tables
         value = REF #( return ) ) INTO TABLE rt_parmbind.
-*!  ENDLOOP.
 
+*!  ENDLOOP.
 *   tables
 *!  LOOP AT gt_tab INTO DATA(gs_tab) WHERE parameter <> 'RETURN'.
 *!  IF gs_tab-optional = abap_true.
@@ -149,14 +154,23 @@ CLASS {class_name} IMPLEMENTATION.
 *!  ENDLOOP.
     ENDMETHOD.
 
-    METHOD call.
-      DATA:
-        lt_etab TYPE abap_func_excpbind_tab.
+    METHOD prepare_excpbind.
+*!  LOOP AT gt_exc INTO DATA(gs_exc).
+      INSERT VALUE #(
+        name = '{gs_exc-exception}'
+        value = {sy_tabix} ) INTO TABLE rt_excpbind.
 
+*!  ENDLOOP.
+    ENDMETHOD.
+
+    METHOD call.
       DATA(lt_ptab) = prepare_parmbind( ).
+      DATA(lt_etab) = prepare_excpbind( ).
 
       CALL FUNCTION '{gs_rs38l-name}'
         PARAMETER-TABLE lt_ptab
         EXCEPTION-TABLE lt_etab.
+
+      rv_rc = sy-subrc.
     ENDMETHOD.
 ENDCLASS.
